@@ -11,7 +11,9 @@ Kể từ khi ra đời vào năm 2009, Node.js đã đem đến một cuộc c�
 
 # JavaScript Engine
 
-![engine](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine.png?raw=true)
+<figure>
+	<img src="https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine.png?raw=true">
+</figure>
 
 JavaScript Engine là một chương trình máy tính thực thi các đoạn code JavaScript (JS).
 
@@ -35,19 +37,25 @@ Bài viết này sẽ nói dựa trên V8 engine và các trình duyệt dựa t
 
 ### Load
 
-![engine1](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine1.gif?raw=true)
+<figure>
+	<img src="https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine1.gif?raw=true">
+</figure>
 
 Trình phân tích cú pháp HTML sẽ tìm thẻ tag là `script` với một source. Code từ source này sẽ được load từ **network**, **cache** hoặc từ một **service worker** đã cài trước đó. Response trả về sẽ là một đoạn script dưới dạng 1 **luồng byte**, phần này sẽ do byte stream decode xử lý. **Byte stream decoder** sẽ decode chuỗi byte này ra khi nó được down về.
 
 ### Decode
 
-![engine2](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine2.gif?raw=true)
+<figure>
+	<img src="https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine2.gif?raw=true">
+</figure>
 
 Byte stream decoder sẽ khởi tạo các mã **token** từ luồng byte đã được decode. Ví dụ, `0066` decode thành `f`, `0075` thành `u`, `006e` thành `n`, `0063` thành `c`, `0074` thành `t`, `0069` thành `i`, `006f` thành `o`, `006e` thành `n` với khoảng trắng. Đây là keyword dành riêng cho JavaScript, mã token được tạo và gửi đến parser (và cả các *pre-parser* nữa, tôi không có gif để mô tả kỹ hơn nhưng tôi sẽ giải thích thêm bên dưới). Và đối với phần còn lại của byte stream cũng sẽ diễn ra tương tự.
 
 ### Node
 
-![engine3](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine3.gif?raw=true)
+<figure>
+	<img src="https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine3.gif?raw=true">
+</figure>
 
 Engine sử dụng 2 parser: **pre-parser** và **parser**. Pre-parser có nhiệm vụ kiểm tra lỗi cú pháp từ các mã token. Từ đó làm giảm thiểu được không ít thời gian trong việc tìm lỗi trong code, dù đương nhiên sẽ có trường hợp sau đó parser vẫn phát hiện thêm lỗi. 
 
@@ -55,13 +63,17 @@ Trường hợp nếu không có lỗi, parser sẽ tạo ra các node được 
 
 ### Interpreter 
 
-![engine4](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine4.gif?raw=true)
+<figure>
+	<img src="https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine4.gif?raw=true">
+</figure>
 
 Tiếp theo là đến công đoạn của **interpreter** (trình phiên dịch). Interpreter đi qua AST và tạo byte code dựa trên thông tin AST chứa. Sau khi hoàn thành công đoạn tạo **byte code**, AST sẽ bị xóa để giải phóng bộ nhớ. Cuối cùng chúng ta đã có “nguyên liệu” có thể làm việc máy.
 
 ### Byte code & feedback type
 
-![engine5](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine5.gif?raw=true)
+<figure>
+	<img src="https://github.com/Ren0503/moon/blob/master/assets/img/javascript/engine5.gif?raw=true">
+</figure>
 
 Mặc dù byte code đã khá nhanh nhưng vẫn có thể tối ưu hóa tốc độ hơn nữa. Thông tin được tạo ra khi byte code hoạt động. Nó có thể phát hiện những hành vi nào thường diễn ra, và loại data được sử dụng. Có thể bạn thường lặp đi lặp lại một chức năng, thì đây cũng là lúc tối ưu hóa để đẩy nhanh tốc độ.
 
