@@ -3,7 +3,7 @@ layout: post
 title: Làm Thế Nào React Hook Có Thể Thay Thế Class Component
 date:   2021-09-29
 excerpt: Cách mà Function Component sử dụng hooks để tạo ra vòng đời của riêng nó
-tags: [react, hook, component]
+tags: [react, hooks, component]
 comments: true
 ---
 

@@ -74,7 +74,7 @@ Ta sẽ thấy hai hàm là `mapStateToProps` và `mapDispatchToProps`, đây l�
 
 Component ta viết như sau :
 
-```javascript
+```jsx
 import React from 'react';
 import FoodItem from './FoodItem';
 import { connect } from 'react-redux';
@@ -110,7 +110,7 @@ Mô hình hoạt động của connect như sau :
 
 Trong trường hợp ta thay thế connect bằng các hooks ta được đoạn code như sau:
 
-```javascript
+```jsx
 import React from 'react';
 import FoodItem from './FoodItem';
 import { useSelector, useDispatch } from 'react-redux';

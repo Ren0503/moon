@@ -3,7 +3,7 @@ layout: post
 title: Các Khái Niệm Căn Bản Về Javascript (P6) - Callback
 date:   2021-09-25
 excerpt: Tất tần tật về callback trong Javascript.
-tags: [javascript, scope]
+tags: [javascript, callback]
 comments: true
 ---
 

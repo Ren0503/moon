@@ -3,7 +3,7 @@ layout: post
 title: Quản Lý State Với Context API (P2)
 date:   2021-10-01
 excerpt: Sử dụng context để quản lý state trong React
-tags: [react, context, hook]
+tags: [react, context, hooks]
 comments: true
 ---
 

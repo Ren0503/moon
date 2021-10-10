@@ -3,7 +3,7 @@ layout: post
 title: Cải Thiện Hiệu Suất Với React Hooks
 date:   2021-09-30
 excerpt: Cải thiện tốc độ, hiệu suất trang web với các react hooks
-tags: [react, hook]
+tags: [react, hooks]
 comments: true
 ---
 
