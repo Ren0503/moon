@@ -104,7 +104,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(FoodList);
 
 Mô hình hoạt động của connect như sau :
 
-![connect1](/assets/img/redux/connect.png)
+![connect1](https://github.com/Ren0503/moon/blob/master/assets/img/redux/connect.png)
 
 # useSelector() và useDispatch()
 
