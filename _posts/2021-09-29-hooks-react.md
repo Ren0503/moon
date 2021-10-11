@@ -98,7 +98,7 @@ function Example() {
 
 Kết quả là :
 
-![useEffect1](https://github.com/Ren0503/moon/blob/master/assets/img/react/useEffect1.png)
+![useEffect1](/assets/img/react/useEffect1.png)
 
 ## Mounting
 Đây là quá trình component được khởi tạo và render lần đầu tiên, nó có phương thức chính là `componentDidMount`. Sau khi component xuất hiện ở DOM, những câu lệnh bên trong `componentDidMount` sẽ được thực hiện, nhưng chỉ một lần duy nhất. Để làm được như vậy với useEffect, ta cần truyền một mảng dependencies rỗng vào.
@@ -124,7 +124,7 @@ function Example() {
 
 Như vậy dù có click bao nhiêu lần, lệnh console cũng chỉ hiển thị một lần duy nhất :
 
-![useEffect2](https://github.com/Ren0503/moon/blob/master/assets/img/react/useEffect2.png)
+![useEffect2](/assets/img/react/useEffect2.png)
 
 ## Updating
 
@@ -154,7 +154,7 @@ function Example() {
 
 Kết quả là nó chỉ hiển thị câu lệnh mỗi khi button `Click me` thay đổi, còn phía button `Click your` có thay đổi bao nhiêu lần nó cũng không ảnh hưởng.
 
-![useEffect3](https://github.com/Ren0503/moon/blob/master/assets/img/react/useEffect3.png)
+![useEffect3](/assets/img/react/useEffect3.png)
 
 ## Unmounting
 
@@ -182,7 +182,7 @@ function Example() {
 
 Như vậy là mỗi khi component sắp bị unmount nó sẽ báo console giống như `componentWillUnMount()`.
 
-![useEffect4](https://github.com/Ren0503/moon/blob/master/assets/img/react/useEffect4.png)
+![useEffect4](/assets/img/react/useEffect4.png)
 
 # Ref - useRef.
 
@@ -213,7 +213,7 @@ function Example() {
 
 Kết quả là `counter` luôn bằng 1 sau mỗi re-render.
 
-![useRef1](https://github.com/Ren0503/moon/blob/master/assets/img/react/useRef1.png)
+![useRef1](/assets/img/react/useRef1.png)
 
 Để thay đổi được `counter` ta sử dụng **useRef**, cú pháp như sau :
 
@@ -249,7 +249,7 @@ function Example() {
 
 Kết quả ta đã đổi được giá trị `counter` sau mỗi lần re-render.
 
-![useRef1](https://github.com/Ren0503/moon/blob/master/assets/img/react/useRef2.png)
+![useRef1](/assets/img/react/useRef2.png)
 
 # Tổng kết
 

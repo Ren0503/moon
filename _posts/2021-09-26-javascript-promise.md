@@ -50,7 +50,7 @@ console.log(book)
 
 Kết quả :
 
-![promise1](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise1.png)
+![promise1](/assets/img/javascript/promise1.png)
 
 Thì lúc này bạn có thể thấy trạng thái của **promise** đã được thay đổi sang `resolved` và giá trị của **promise** là một chuỗi mà chúng ta đã truyền vào cho hàm `resolve()`. Bạn có thể hình dung cách chạy của nó như sau:
 
@@ -75,7 +75,7 @@ console.log(book)
 
 Kết quả :
 
-![promise2](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise2.png)
+![promise2](/assets/img/javascript/promise2.png)
 
 Như vậy giá trị khi mà **promise** đang ở trạng thái `pending` là `undefined`. Giá trị của nó sẽ được trả về khi **promise** được hoàn thành sau khoảng thời gian 3s.
 Tiếp theo chúng ta sẽ đi vào xem trạng thái của nó khi mà chương trình thực thi không thành công bằng cách gán `duocGoiSach = false`. Để hiểu rõ hơn bạn xem đoạn code sau đây nhé:
@@ -94,11 +94,11 @@ console.log(book)
 
 Kết quả :
 
-![promise3](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise3.png)
+![promise3](/assets/img/javascript/promise3.png)
 
 Vậy qua 3 ví dụ trên thì chúng ta có thể rút ra một sơ đồ như sau:
 
-![promise4](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise4.png)
+![promise4](/assets/img/javascript/promise4.png)
 
 Mình có một số lưu ý là khi promise đã chuyển sang trạng thái **fulfilled** hoặc **rejected** thì chúng ta khổng thể thay đối trạng thái cho nó. Nghĩa là bạn không thể chuyển từ trạng thái **fulfilled** sang **rejected** hoặc theo chiều ngược lại.
 
@@ -167,7 +167,7 @@ book.then(
 
 Kết quả :
 
-![promise5](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise5.png)
+![promise5](/assets/img/javascript/promise5.png)
 
 Promise đang ở trạng thái `pending` là do chúng ta thiết lập thời gian chạy hàm bằng `setTimeout`. Sau 3s thì hàm phía trên sẽ chạy và trả về đối tượng **promise** với trạng thái thành công như bạn thấy ở hình trên. Sau đó phương thức `then` sẽ nhận giá trị từ đối tượng promise và hiển thị ra ngoài màn hình.
 Ngoài ra phương thức `then` cũng cho phép bạn sử dụng một tham số để chỉ xử lý cho trường hợp thành công hoặc trường hợp lỗi:
@@ -192,7 +192,7 @@ book.catch(
 
 Và kết quả bạn sẽ được như hình sau đây:
 
-![promise6](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise6.png)
+![promise6](/assets/img/javascript/promise6.png)
 
 ## Sử dụng then(null, hàm xử lý lỗi):
 
@@ -203,7 +203,7 @@ book.then(
 )
 ```
 
-![promise7](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise7.png)
+![promise7](/assets/img/javascript/promise7.png)
 
 # Phương thức finally
 
@@ -234,7 +234,7 @@ let book = createPromise(true);
 
 Kết quả
 
-![promise8](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise8.png)
+![promise8](/assets/img/javascript/promise8.png)
 
 Ở đây mình có một số lưu ý sau là:
 
@@ -314,11 +314,11 @@ objectPromise.then((result) => {
 
 Kết quả :
 
-![promise9](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise9.png)
+![promise9](/assets/img/javascript/promise9.png)
 
 Ví dụ trên chính là minh họa cho **promise chain**. Các phương thức của `Promise` như `then()`, `catch()`, `finally` thì sẽ trả về một đối tượng `Promise`. Do đó chúng ta có thể gọi liên tiếp các phương thức này theo một cách tuần tự. Và như bạn cũng thấy là ở ví dụ trên chúng ta đã xử lý sự kiện bất đồng bộ trong Javascript bằng **promise chain**. Và dưới đây là hình ảnh minh họa mà nó hoạt động là:
 
-![promise10](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise10.png)
+![promise10](/assets/img/javascript/promise10.png)
 
 Nếu bạn gọi các phương thức `then()` một cách độc lập thì chúng ta sẽ không thể truyền kết quả từ phương thức này sang phương thức khác vì nó không có mối quan hệ với nhau. Để hiểu rõ hơn bạn xem ví dụ sau đây nhé:
 
@@ -340,11 +340,11 @@ objectPromise.then((result) => {
 })
 ```
 
-![promise11](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise11.png)
+![promise11](/assets/img/javascript/promise11.png)
 
 Như bạn thấy thì kết quả sẽ không thay đổi khi chúng ta gọi các phương thức `then()` một cách độc lập. Để dễ hình dung bạn xem hình ảnh mô tả cách nó hoạt động sau nhé:
 
-![promise12](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/promise12.png)
+![promise12](/assets/img/javascript/promise12.png)
 
 # Tổng kết
 

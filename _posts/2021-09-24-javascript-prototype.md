@@ -27,7 +27,7 @@ Chính bởi 2 khái niệm trên, mà có thể xem mẫu khởi tạo (constru
 
 **Thứ 3**: Các object trong Javascript có một khái niệm gọi là **đặc tính prototype của đối tượng** (prototype attribute), đặc tính này có giá trị trỏ tới **prototype object** mà nó kế thừa thuộc tính. Ta dùng thuộc tính `__proto__` để truy cập tới prototype object.
 
-![prototype](https://github.com/Ren0503/moon/blob/master/assets/img/javascript/prototype.png)
+![prototype](/assets/img/javascript/prototype.png)
 
 # Tạo ra propotype như thế nào?
 

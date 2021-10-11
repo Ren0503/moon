@@ -19,7 +19,7 @@ Các sản phẩm phần mềm trao đổi dữ liệu và chức năng với nh
 
 **API** là một bộ mã lập trình cho phép truyền dữ liệu giữa một phần mềm này với một phần mềm khác. Nó cũng chứa các điều khoản qui định về việc trao đổi dữ liệu đấy.
 
-![api1](https://github.com/Ren0503/moon/blob/master/assets/img/api/api1.png)
+![api1](/assets/img/api/api1.png)
 
 API bao gồm hai thành phần:
 
@@ -49,7 +49,7 @@ API phục vụ nhiều mục đích. Nói chung, chúng có thể đơn giản 
 
 Về chính sách phát hành, API có 3 loại là : private, partner và public
 
-![api2](https://github.com/Ren0503/moon/blob/master/assets/img/api/api2.png)
+![api2](/assets/img/api/api2.png)
 
 **API riêng tư**. Các giao diện phần mềm ứng dụng này được thiết kế để cải thiện các giải pháp và dịch vụ trong một tổ chức. Các nhà phát triển hoặc nhà thầu nội bộ có thể sử dụng các API này để tích hợp các hệ thống hoặc ứng dụng CNTT của công ty, xây dựng các hệ thống mới hoặc các ứng dụng hướng tới khách hàng tận dụng các hệ thống hiện có. Ngay cả khi các ứng dụng công khai, bản thân giao diện vẫn chỉ có sẵn cho những người làm việc trực tiếp với nhà phát hành API. Chiến lược riêng tư cho phép một công ty kiểm soát hoàn toàn việc sử dụng API.
 
@@ -91,7 +91,7 @@ Mục tiêu của các đặc tả API là chuẩn hóa việc trao đổi dữ 
 
 Các web API có thể tuân thủ các nguyên tắc trao đổi tài nguyên dựa trên Remote Procedure Call. Giao thức này chỉ định sự tương tác giữa các ứng dụng dựa trên client-server. Một chương trình (client) yêu cầu dữ liệu hoặc chức năng từ một chương trình (server) khác, nằm trong một máy tính khác trên mạng và máy chủ sẽ gửi phản hồi cần thiết.
 
-![rpc](https://github.com/Ren0503/moon/blob/master/assets/img/api/rpc.png)
+![rpc](/assets/img/api/rpc.png)
 
 RPC còn được gọi là chương trình con hoặc lệnh gọi hàm. Một trong hai cách để thực hiện Remote Procedure Call là SOAP.
 
@@ -101,7 +101,7 @@ SOAP là một giao thức nhẹ để trao đổi thông tin có cấu trúc tr
 
 Ngôn ngữ đánh dấu mở rộng ([XML](https://www.w3.org/XML/)) là một định dạng văn bản đơn giản và rất linh hoạt được sử dụng rộng rãi để lưu trữ và trao đổi dữ liệu qua internet hoặc các mạng khác. XML xác định một tập hợp các quy tắc để mã hóa tài liệu ở định dạng mà cả người và máy đều có thể đọc được. Ngôn ngữ đánh dấu là một tập hợp các ký hiệu có thể được đặt trong văn bản để phân định và gắn nhãn các phần của tài liệu văn bản. Các tài liệu văn bản XML chứa các thẻ tự mô tả của các đối tượng dữ liệu, điều này làm cho chúng dễ đọc.
 
-![xml](https://github.com/Ren0503/moon/blob/master/assets/img/api/xml.png)
+![xml](/assets/img/api/xml.png)
 
 SOAP hầu hết được sử dụng với phần mềm dựa trên web doanh nghiệp để đảm bảo tính bảo mật cao cho dữ liệu được truyền. API SOAP được ưu tiên trong số các nhà cung cấp cổng thanh toán, quản lý danh tính và giải pháp CRM, cũng như các dịch vụ tài chính và viễn thông. API công khai của [PayPal](https://developer.paypal.com/docs/nvp-soap-api/PayPalSOAPAPIArchitecture/) là một trong những SOAP API thường được biết đến. Nó cũng thường được sử dụng để hỗ trợ hệ thống cũ.
 
@@ -119,7 +119,7 @@ Những gã khổng lồ về truyền thông xã hội và các công ty du l�
 
 JavaScript Object Notation ([JSON](https://www.altexsoft.com/blog/engineering/travel-and-booking-apis-for-online-travel-and-tourism-service-providers/)) là một định dạng văn bản nhẹ và dễ phân tích cú pháp để trao đổi dữ liệu. Cú pháp của nó dựa trên một tập hợp con của [Standard ECMA-262 3rd Edition](https://www.ecma-international.org/wp-content/uploads/ECMA-262_3rd_edition_december_1999.pdf). Mỗi tệp JSON chứa các tập hợp các cặp *name/value* và danh sách các giá trị có thứ tự. Vì đây là những cấu trúc dữ liệu phổ quát, nên định dạng này có thể được sử dụng với bất kỳ ngôn ngữ lập trình nào.
 
-![rest](https://github.com/Ren0503/moon/blob/master/assets/img/api/rest.png)
+![rest](/assets/img/api/rest.png)
 
 JSON đã được áp dụng rộng rãi nhờ vào sự phổ biến của REST.
 
@@ -131,7 +131,7 @@ Giống như SOAP và REST, phương thức truyền tải cho gRPC là HTTP. Tu
 
 Theo mặc định, gRPC sử dụng [bộ đệm giao thức](https://developers.google.com/protocol-buffers/docs/overview) thay vì JSON hoặc XML làm Ngôn ngữ Định nghĩa Giao diện (IDL) để tuần tự hóa dữ liệu có cấu trúc. Ở đây, trước tiên nhà phát triển cần xác định cấu trúc của dữ liệu mà họ muốn tuần tự hóa. Khi cấu trúc dữ liệu đã được chỉ định, chúng sử dụng trình biên dịch bộ đệm giao thức để tạo các lớp truy cập dữ liệu bằng ngôn ngữ lập trình mà bạn chọn. Dữ liệu sau đó được nén và tuần tự hóa ở định dạng nhị phân trong thời gian chạy. Tìm hiểu thêm về gRPC trong bài viết [chi tiết](https://www.altexsoft.com/blog/what-is-grpc/).
 
-![grpc](https://github.com/Ren0503/moon/blob/master/assets/img/api/grpc.png)
+![grpc](/assets/img/api/grpc.png)
 
 gRPC chủ yếu được sử dụng để giao tiếp giữa các microservices vì nó có sẵn bằng nhiều ngôn ngữ và có hiệu suất cao.
 
@@ -141,7 +141,7 @@ Nhu cầu phát triển tính năng nhanh hơn, tải dữ liệu hiệu quả h
 
 GraphQL là một ngôn ngữ truy vấn cho các API. Nó cho phép khách hàng chi tiết hóa dữ liệu chính xác mà nó cần và đơn giản hóa việc tổng hợp dữ liệu từ nhiều nguồn, vì vậy nhà phát triển có thể sử dụng một lệnh gọi API để yêu cầu tất cả dữ liệu cần thiết. Một tính năng đặc biệt khác của GraphQL là nó sử dụng *type system* để mô tả dữ liệu.
 
-![graphql](https://github.com/Ren0503/moon/blob/master/assets/img/api/graphql.png)
+![graphql](/assets/img/api/graphql.png)
 
 Việc sử dụng *type* để mô tả dữ liệu cho phép ứng dụng chỉ định dữ liệu nào họ cần lấy
 
@@ -164,7 +164,7 @@ Nhiều yếu tố nội dung tạo nên tài liệu tốt, chẳng hạn như:
 
 Tài liệu có thể *static* và *interactive*. Loại interactive cho phép thử các API và xem kết quả trả về và thường bao gồm hai cột: human và machine. Cột human chứa mô tả API và machine có bảng điều khiển để thực hiện request và chứa thông tin mà máy khách và máy chủ sẽ quan tâm khi kiểm tra API.
 
-![test](https://github.com/Ren0503/moon/blob/master/assets/img/api/test.jpeg)
+![test](/assets/img/api/test.jpeg)
 
 Generation là quá trình tài liệu hóa các API của các nhà phát triển và người viết kỹ thuật. Các chuyên gia có thể sử dụng các giải pháp tài liệu API (tức là các công cụ Swagger, Postman, Slate hoặc ReDoc) để thống nhất cấu trúc và thiết kế tài liệu.
 

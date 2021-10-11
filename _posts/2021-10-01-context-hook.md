@@ -334,7 +334,7 @@ export default function ContactTable() {
 
 Như vậy là xong ta có ứng dụng demo như sau :
 
-![Demo](https://github.com/Ren0503/moon/blob/master/assets/img/redux/demo.gif)
+![Demo](/assets/img/redux/demo.gif)
 
 # Tham khảo
 
