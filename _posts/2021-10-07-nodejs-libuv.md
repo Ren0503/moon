@@ -2,7 +2,7 @@
 layout: post
 title: Bên Trong Node.js (P3) - Thư Viện Libuv
 date:   2021-10-05
-excerpt: Event Loop và Thread Pool bên trong libuv.
+excerpt: Thư việc libuv và cơ chế Asynchronous Event-Driven Nonblocking I/O .
 tags: [libuv, node.js]
 comments: true
 ---
@@ -146,7 +146,7 @@ Nơi chứa các hàm ở Node APIs xuống. Nó sẽ ở đây chờ đến khi
 
 Ta có sơ đồ hoạt động như sau:
 
-![node](/assets/img/nodejs/node.png)
+![node](/assets/img/nodejs/node.jpg)
 
 - Khi có nhiều request được gửi từ nhiều client trong cùng một thời điểm, các request này sẽ được đưa vào **event queue** hoạt động theo cơ chế FIFO - *First In First Out*.
 - Request được lấy ra ở **event queue** sẽ được đưa đến **call stack** để xử lý. Ở đây, trên server sẽ thực thi các hàm để có kết quả trả về cho request đó.
