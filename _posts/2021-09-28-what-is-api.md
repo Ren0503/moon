@@ -188,6 +188,6 @@ Dưới đây là một số ví dụ về các API nổi tiếng sử dụng c�
 
 Như vậy là kết thúc bài viết về API, hy vọng nó sẽ có ích cho những ai đang cần.
 
-## Tham khảo
+## Nguồn
 
-[altexsoft](https://www.altexsoft.com/blog/engineering/what-is-api-definition-types-specifications-documentation/)
+[**altexsoft**](https://www.altexsoft.com/blog/engineering/what-is-api-definition-types-specifications-documentation/)

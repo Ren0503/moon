@@ -101,6 +101,6 @@ sum('1', 2)
 
 Bài viết trên đây đã giới thiệu sơ qua về javascript engine và cách nó hoạt động, các bài viết tiếp theo sẽ tìm hiểu sâu về node.js. Mong là bài viết sẽ có ích cho những ai cần nó
 
-# Tham khảo
+# Nguồn
 
 [dev.to](https://dev.to/lydiahallie/javascript-visualized-the-javascript-engine-4cdf)

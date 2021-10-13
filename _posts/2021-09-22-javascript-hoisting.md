@@ -255,6 +255,6 @@ PI=3.142;
 
 Hoisting là cơ chế của Javascript cho phép đưa tất cả các khai báo lên trên cùng của **Scope**. Sử dụng `let` và `const` thay cho `var` để tránh **Hoisting** lằng nhằng và giúp code chặc chẽ hơn. Hy vọng bài viết sẽ có ích cho ai đang gặp các vấn đề với Hoisting.
 
-# Tham khảo
+# Nguồn
 
-[xdevclass](https://xdevclass.com/hieu-sau-ve-hoisting-scope-trong-javascript/#7_Thu_tu_Hoisting)
+[**xdevclass**](https://xdevclass.com/hieu-sau-ve-hoisting-scope-trong-javascript/#7_Thu_tu_Hoisting)

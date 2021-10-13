@@ -338,7 +338,6 @@ Như vậy là xong ta có ứng dụng demo như sau :
 
 # Tham khảo
 
-[viblo](https://viblo.asia/p/react-hooks-su-dung-usecontext-va-usereducer-de-thay-the-redux-yMnKM89m57P)
+[**viblo**](https://viblo.asia/p/react-hooks-su-dung-usecontext-va-usereducer-de-thay-the-redux-yMnKM89m57P)
 
-
-[sitepoint](https://www.sitepoint.com/replace-redux-react-hooks-context-api/)
+[**sitepoint**](https://www.sitepoint.com/replace-redux-react-hooks-context-api/)

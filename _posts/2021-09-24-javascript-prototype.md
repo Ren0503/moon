@@ -109,6 +109,6 @@ Prototype rất quan trọng trong việc giúp ta truy cập tới các thuộc
 
 Quá trình lặp lại này được gọi là chuỗi prototype trong Javascript. Chính điều này + thuộc tính prototype của function tạo nên cơ chế kế thừa **prototype-based** cho Javascript.
 
-## Tham khảo
+## Nguồn
 
-[nhungdongcodevui](https://nhungdongcodevui.com/2017/05/24/javascript-prototype-trong-javascript-la-gi-va-tai-sao-no-lai-quan-trong/)
+[**nhungdongcodevui**](https://nhungdongcodevui.com/2017/05/24/javascript-prototype-trong-javascript-la-gi-va-tai-sao-no-lai-quan-trong/)

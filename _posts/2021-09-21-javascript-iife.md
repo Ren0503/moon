@@ -102,4 +102,4 @@ Tóm lại, IIFE hữu ích khi chúng ta muốn đóng gói code để nó khô
 
 ## Tham khảo
 
-[thaunguyen](https://thaunguyen.com/blog/javascript/javascript-iife-la-gi)
+[**thaunguyen**](https://thaunguyen.com/blog/javascript/javascript-iife-la-gi)

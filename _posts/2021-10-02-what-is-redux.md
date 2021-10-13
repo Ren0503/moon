@@ -222,6 +222,6 @@ Trên đây là những khái niệm căn bản về redux và các thứ liên 
 
 ## Tham khảo
 
-[medium](https://insights.innovatube.com/redux-thật-là-đơn-giản-phần-1-76a3fa2c31ab)
+[**medium**](https://insights.innovatube.com/redux-thật-là-đơn-giản-phần-1-76a3fa2c31ab)
 
-[xdevclass](https://xdevclass.com/so-sanh-redux-thunk-vs-redux-saga-uu-nhuoc-diem-cua-2-middleware-redux-react/)
+[**xdevclass**](https://xdevclass.com/so-sanh-redux-thunk-vs-redux-saga-uu-nhuoc-diem-cua-2-middleware-redux-react/)

@@ -172,6 +172,6 @@ Bạn sẽ mất tính năng tự động memo mà `connect()` cung cấp.
 
 Trên đây là những so sánh về **connect** và **react-redux hook**. Mong là nó sẽ có ích với những ai đang cần nó.
 
-# Tham khảo
+# Nguồn
 
-[xdevclass](https://xdevclass.com/so-sanh-connect-vs-useselector-usedispatch-redux-connect-voi-redux-hooks-moi/)
+[**xdevclass**](https://xdevclass.com/so-sanh-connect-vs-useselector-usedispatch-redux-connect-voi-redux-hooks-moi/)

@@ -220,7 +220,7 @@ Bên cạnh đó, callback hell cũng làm cho tính thẩm mĩ của code giả
 
 Như vậy chúng ta đã cùng nhau tìm hiểu về khái niệm, cách hoạt động và nhưng lưu ý khi thực hiện Callback Function trong Javascript. Mong là bài viết sẽ hữu ích cho những ai đang cần đến nó
 
-## Tham khảo
+## Nguồn
 
-[codelearn](https://codelearn.io/sharing/callback-function-trong-javascript)
+[**codelearn**](https://codelearn.io/sharing/callback-function-trong-javascript)
 

@@ -158,4 +158,4 @@ Với việc bổ sung Async/Await trong ngôn ngữ JavaScript có một bướ
 
 ## Tham khảo
 
-[viblo](https://viblo.asia/p/giai-thich-ve-asyncawait-javascript-trong-10-phut-1VgZvBn7ZAw)
+[**viblo**](https://viblo.asia/p/giai-thich-ve-asyncawait-javascript-trong-10-phut-1VgZvBn7ZAw)

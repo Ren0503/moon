@@ -219,7 +219,7 @@ useMemo(() => fn, deps).
 
 Bài viết trên tìm hiểu hai hooks là useMemo và useCallback để giải quyết các vấn đề về performance khi làm việc với Function Component trong React. Hy vọng nó sẽ có ích với ai đó đang còn lăn tăn về các vấn đề trên. 
 
-### Tham khảo
+### Nguồn
 
-[kysumattien](https://kysumattien.com/the-ultimate-guide-about-useMemo-and-useCallback)
+[**kysumattien**](https://kysumattien.com/the-ultimate-guide-about-useMemo-and-useCallback)
 

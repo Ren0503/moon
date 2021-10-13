@@ -158,6 +158,6 @@ Ta có sơ đồ hoạt động như sau:
 
 # Tham khảo
 
-[codehub](https://www.codehub.com.vn/NodeJS-–-Hieu-Asynchronous-Event-Driven-Nonblocking-I-O)
+[**codehub**](https://www.codehub.com.vn/NodeJS-–-Hieu-Asynchronous-Event-Driven-Nonblocking-I-O)
 
-[dattp](https://dattp.github.io/2020-04-10-event-loop-in-nodejs/)
+[**dattp**](https://dattp.github.io/2020-04-10-event-loop-in-nodejs/)

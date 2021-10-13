@@ -322,6 +322,6 @@ Bằng cách này, function sẽ không bị gọi ngay, các scopes cũng đư�
 
 Như vậy là đã hết bài viết về scope trong javascript, hy vọng bài viết sẽ có ích cho những ai cần nó và hẹn gặp lại ở bài viết tiếp theo.
 
-## Tham khảo
+## Nguồn
 
-[ultimatecourses](https://ultimatecourses.com/blog/everything-you-wanted-to-know-about-javascript-scope)
+[**ultimatecourses**](https://ultimatecourses.com/blog/everything-you-wanted-to-know-about-javascript-scope)

@@ -212,6 +212,6 @@ Nói một chút về việc xoá một thuộc tính của object, ta có thể
 
 Nắm rõ được khái niệm Object trong Javascript, ta sẽ đủ cơ sở để có thể tìm hiểu những khái niệm lắt léo khác của Javascript.
 
-## Tham khảo
+## Nguồn
 
-[kipalog](https://kipalog.com/posts/Ban-ve-khai-niem-Object-trong-Javascript)
+[**nhungdongcodevui**](https://nhungdongcodevui.com/2017/05/19/javascript-ban-ve-khai-niem-object-trong-javascript)
