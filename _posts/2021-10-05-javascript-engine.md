@@ -7,7 +7,7 @@ tags: [javascript, engine, node.js]
 comments: true
 ---
 
-Kể từ khi ra đời vào năm 2009, Node.js đã đem đến một cuộc cách mạng thực sự, thay đổi hoàn toàn tầm vóc của Javascript. Ứng dụng node.js trải dài từ backend cho ứng dụng, xây dựng hệ thống thời gian thực đến cả kết nối vạn vật IoT. Không chỉ hoạt động trên được nhiều hệ điều hành, node.js còn giúp tiết kiệm được thời gian và đơn giản hoá công việc. Vậy node.js là gì mà thần thánh thế, để hiểu về nodejs là gì ta cần phải hiểu về cái thứ bên trong node.js trước hết là v8 engine.
+Kể từ khi ra đời vào năm 2009, Node.js đã đem đến một cuộc cách mạng thực sự, thay đổi hoàn toàn tầm vóc của Javascript. Ứng dụng node.js trải dài từ backend cho ứng dụng, xây dựng hệ thống thời gian thực đến cả kết nối vạn vật IoT. Không chỉ hoạt động trên được nhiều hệ điều hành, node.js còn giúp tiết kiệm được thời gian và đơn giản hoá công việc. Vậy node.js là gì mà thần thánh thế, để hiểu về nodejs là gì ta cần phải hiểu về cái thứ bên trong node.js trước hết là javascript engine.
 
 # JavaScript Engine
 
@@ -37,7 +37,7 @@ Bài viết này sẽ nói dựa trên V8 engine và các trình duyệt dựa t
 
 ![engine1](/assets/img/javascript/engine1.gif)
 
-Trình phân tích cú pháp HTML sẽ tìm thẻ tag là `script` với một source. Code từ source này sẽ được load từ **network**, **cache** hoặc từ một **service worker** đã cài trước đó. Response trả về sẽ là một đoạn script dưới dạng 1 **luồng byte**, phần này sẽ do byte stream decode xử lý. **Byte stream decoder** sẽ decode chuỗi byte này ra khi nó được down về.
+Trình phân tích cú pháp HTML sẽ tìm thẻ tag là `script` với một source. Code từ source này sẽ được load từ **network**, **cache** hoặc từ một **service worker** đã cài trước đó. Response trả về sẽ là một đoạn script dưới dạng 1 **luồng byte**, phần này sẽ do byte stream decoder xử lý. **Byte stream decoder** sẽ decode chuỗi byte này ra khi nó được down về.
 
 ### Decode
 
