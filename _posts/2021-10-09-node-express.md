@@ -180,7 +180,7 @@ console.log('Server is listening on port 8080');
 
 Sau đó tại ejs ta hiển thị dữ liệu dựa trên dạng đối tượng truyền về:
 
-```html
+```xml
 <!DOCTYPE html>
 <html lang="en">
 <head>
