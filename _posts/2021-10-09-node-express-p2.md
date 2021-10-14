@@ -228,8 +228,6 @@ Lúc này giao diện ta có được sẽ là:
 
 # Xử lý lỗi
 
-Express sở hữu một trình xử lý lỗi mặc định, nên ta không cần phải tự viết hàm xử lý cho riêng mình. Xử lý lỗi trong Express có
-
 ## Code đồng bộ
 
 Code đồng bộ đề cập đến các đoạn mã được thực thi tuần tự và từng lệnh một. Khi một lỗi gặp phải trên code đồng bộ, Express sẽ tự động bắt nó. Dưới đây là một ví dụ về hàm routing trong đó ta mô phỏng điều kiện lỗi bằng cách đưa ra một lỗi:
@@ -414,11 +412,11 @@ app.listen(port, () => {
 
 Thay vì xử lý bên trong mỗi route, giờ đây ta đặt tất cả logic vào trong middleware. Sau đó dựa vào loại lỗi mà xử lý chúng ở middleware.
 
-Điều này vẫn giữ chức năng tương tự trước đây, nhưng hiệu quả hơn. Giả sử các file này không có trên máy chủ, nếu ta truy cập `/one` máy chủ ghi lại lỗi và phản hồi **500**. Còn nếu truy cập `/one` ta sẽ được chuyển hướng đến trang error. 
+Điều này vẫn giữ chức năng tương tự trước đây, nhưng hiệu quả hơn. Giả sử các file này không có trên máy chủ, nếu ta truy cập `/one` máy chủ ghi lại lỗi và phản hồi **500**. Còn nếu truy cập `/two` ta sẽ được chuyển hướng đến trang error. 
 
 ![error](/assets/img/nodejs/error.png)
 
-Như vậy có thể thấy, đây là một ví dụ cơ bản để hiểu cách tách logic xử lý lỗi từ các route thành middleware. Điều này mở rộng cho các ứng dụng lớn hơn với hàng route để tăng tính mô-đun, giảm dự phòng, bảo trì dễ dàng hơn và xử lý ngoại lệ hiệu quả hơn.
+Như vậy có thể thấy, đây là một ví dụ cơ bản để hiểu cách tách logic xử lý lỗi từ các route thành middleware. Điều này mở rộng cho các ứng dụng lớn hơn với hàng route để tăng tính module, giảm dự phòng, bảo trì dễ dàng hơn và xử lý ngoại lệ hiệu quả hơn.
 
 ## Thêm nhiều middleware xử lý lỗi
 
@@ -436,6 +434,7 @@ app.use(errorLogger)
 app.use(errorResponder)
 app.use(failSafeHandler)
 ```
+
 Ta viết lại như sau
 
 ```javascript
@@ -493,7 +492,7 @@ console.log(`Example app listening at http://localhost:${port}`)
 
 Điều này đem lại chức năng tương tự đoạn code ở ví dụ trước, nhưng sẽ mở rộng quy mô tốn hơn khi thêm nhiều route và xử lý nhiều lỗi hơn.
 
-Như đã thảo luận từ trước, khi làm việc với middleware, người ta phải theo dõi trình tự của chúng, và nhớ mỗi middleware phản hồi client và gọi hàm tiếp theo trong stack. Nếu máy chị bị treo, máy khách tiếp tục đợi. Ví dụ nếu ta quên sử dụng `next()` trong middleware đầu tiên (`errorLogger`), các middleware sẽ không được gọi, và client sẽ đợi mãi mà không có phản hồi nào.
+Như đã thảo luận từ trước, khi làm việc với middleware, người ta phải theo dõi trình tự của chúng, và nhớ mỗi middleware phản hồi client và gọi hàm tiếp theo trong stack. Nếu server bị treo, client sẽ phải tiếp tục đợi. Ví dụ nếu ta quên sử dụng `next()` trong middleware đầu tiên (`errorLogger`), các middleware sẽ không được gọi, và client sẽ đợi mãi mà không có phản hồi nào.
 
 # Debug
 
