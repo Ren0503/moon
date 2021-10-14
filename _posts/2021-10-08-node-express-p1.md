@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 });
 ```
 
-Phần cuối chương trình chạy ứng dụng trên `port` được chỉ định là 3000, với máy chủ đang tray có thể truy cập `localhost:3000` trên trình duyệt để xem kết quả.
+Phần cuối chương trình chạy ứng dụng trên `port` được chỉ định là 3000, với máy chủ đang chạy có thể truy cập `localhost:3000` trên trình duyệt để xem kết quả.
 
 ```javascript
 const port = 3000;  
@@ -129,7 +129,7 @@ console.dir(req.params.name)
 
 ### req.query
 
-Tương tự như `req.params` nhưng là lấy query từ linh
+Tương tự như `req.params` nhưng là lấy query từ link
 
 > GET /api/users?name="Bob"
 
@@ -380,7 +380,7 @@ Express có các hàm built-in middleware sau:
 
 - [express.static](https://expressjs.com/en/4x/api.html#express.static) các file tĩnh như hình ảnh, HTML, ....
 - [express.json](https://expressjs.com/en/4x/api.html#express.json) phân tích cú pháp request đến với JSON payload. *Lưu ý*: Chỉ khả dụng từ Express 4.16.0+
-- [express.urlencoded]  phân tích cú pháp request đến với URL-encoded payloads. *Lưu ý*: Chỉ khả dụng từ Express 4.16.0+
+- [express.urlencoded](https://expressjs.com/en/api.html#express.urlencoded)  phân tích cú pháp request đến với URL-encoded payloads. *Lưu ý*: Chỉ khả dụng từ Express 4.16.0+
 
 ## Third-party middleware
 

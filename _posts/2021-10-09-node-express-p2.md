@@ -304,7 +304,6 @@ app.get('/', (req, res, next) => {
 ```
 *Lưu ý: Kể từ Express 5.0 (hiện vẫn đang là bản alpha) sẽ trả về error (hoặc reject) bằng cách trả về một Promise.*
 
-
 ## Xử lý lỗi tuỳ chỉnh
 
 Các tự động xử lý lỗi của Express sẽ khá hữu ích với những người mới bắt đầu, nhưng có vài tổ chức hay các dev khác muốn xử lý lỗi theo cách của riêng họ như là lưu tất cả vào một file logs, hoặc gửi cảnh báo đến người dùng hoặc điều hướng sang một trang khác.
@@ -498,9 +497,9 @@ Như đã thảo luận từ trước, khi làm việc với middleware, ngườ
 
 # Debug
 
-Express sử dụng module debug để ghi lại các route, middleware đang được sử dụng, mode của ứng dụng và các luồng của chu trình request-response.
+Express sử dụng module [debug](https://expressjs.com/en/api.html#express.urlencoded) để ghi lại các route, middleware đang được sử dụng, mode của ứng dụng và các luồng của chu trình request-response.
 
-Để có thể xem toàn bộ nhật ký ứng dụng (logs) ta thiết lập biến môi trường DEBUG thành express
+Để có thể xem toàn bộ nhật ký ứng dụng (logs) ta thiết lập biến môi trường `DEBUG` thành **express**.
 
 ```bash
 $ DEBUG=express:* node index.js
@@ -512,7 +511,7 @@ Trên window
 > set DEBUG=express:* & node index.js
 ```
 
-Ta sẽ có kết quả như sau
+Bạn có thể chạy thử:
 
 ```bash
 DEBUG=express:* node ./bin/www
@@ -558,7 +557,7 @@ DEBUG=express:* node ./bin/www
   express:router:layer new / +0ms
 ```
 
-Ta có bảng biến môi trường như sau:
+Để thuận tiện cho debug Express cung cấp cho ta các biến môi trường như sau:
 
 |Name | Purpose|
 |------ | ------|
