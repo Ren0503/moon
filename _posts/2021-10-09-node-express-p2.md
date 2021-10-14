@@ -89,7 +89,7 @@ Như vật là đã xong ở thư mục partials.
 
 Ta tạo một thư mục là *pages* để chứa nội dung trang web. Trong đây ta tạo file index - trang giao diện chính.
 
-```html
+```xml
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -417,9 +417,7 @@ Thay vì xử lý bên trong mỗi route, giờ đây ta đặt tất cả logic
 
 Điều này vẫn giữ chức năng tương tự trước đây, nhưng hiệu quả hơn. Giả sử các file này không có trên máy chủ, nếu ta truy cập `/one` máy chủ ghi lại lỗi và phản hồi **500**. Còn nếu truy cập `/one` ta sẽ được chuyển hướng đến trang error. 
 
-![error](/assets/img/nodejs/error4.png)
-
-![error](/assets/img/nodejs/error5.png)
+![error](/assets/img/nodejs/error.png)
 
 Như vậy có thể thấy, đây là một ví dụ cơ bản để hiểu cách tách logic xử lý lỗi từ các route thành middleware. Điều này mở rộng cho các ứng dụng lớn hơn với hàng route để tăng tính mô-đun, giảm dự phòng, bảo trì dễ dàng hơn và xử lý ngoại lệ hiệu quả hơn.
 
@@ -563,7 +561,7 @@ DEBUG=express:* node ./bin/www
 Ta có bảng biến môi trường như sau:
 
 |Name | Purpose|
--------------
+|------ | ------|
 |DEBUG | Bật/tắt namespcace debug cụ thể|
 |DEBUG_COLORS	| Có hoặc không sử dụng màu cho output|
 |DEBUG_DEPTH | Kiểm tra độ sâu đối tượng|
