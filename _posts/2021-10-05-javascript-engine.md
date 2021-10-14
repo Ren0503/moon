@@ -15,7 +15,7 @@ Kể từ khi ra đời vào năm 2009, Node.js đã đem đến một cuộc c�
 
 JavaScript Engine là một chương trình máy tính thực thi các đoạn code JavaScript (JS).
 
-JavaScript đọc các đoạn mã JavaScript rồi chuyển nó sang mã máy để máy tính (hoặc phần mềm máy tính như trình duyệt web, server node.js…) có thể hiểu và chạy được.
+JavaScript Engine đọc các đoạn mã JavaScript rồi chuyển nó sang mã máy để máy tính (hoặc phần mềm máy tính như trình duyệt web, server node.js…) có thể hiểu và chạy được.
 
 Nếu bạn đã lập trình với Java hay C/C++ thì có thể hiểu JavaScript tương đương với JDK trong Java hay trình Compiler C/C++ trong lập trình C/C++.
 
