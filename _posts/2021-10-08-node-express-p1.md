@@ -406,3 +406,11 @@ Bạn có thể xem danh sách các Third-party middleware thường xuyên đư
 # Tổng kết
 
 Bài viết tới đây hơi dài nhưng chỉ mới là phần routing và middleware của Express, bài viết tiếp theo sẽ nói về các tính năng nâng cao khác từ Express.
+
+# Serie
+
+1. [Javascript Engine](https://ren0503.github.io/javascript-engine/)
+2. [V8 Engine](https://ren0503.github.io/v8-engine/)
+3. [Nodejs libuv](https://ren0503.github.io/nodejs-libuv/)
+4. [Express (middleware, routing)](https://ren0503.github.io/node-express-p1/)
+5. [Express (handle error, template, debug)](https://ren0503.github.io/node-express-p2/)

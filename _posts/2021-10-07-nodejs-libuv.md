@@ -156,6 +156,14 @@ Ta có sơ đồ hoạt động như sau:
 - Nếu nó thực thi một tác vụ liên quan đến **I/O** thì **adapter** sẽ trả về `true`. Ví dụ như việc query vào DB, sẽ cần một thời gian nhất định. Khi đó **Node APIs** biết mình cần phải xử lý cái hàm đó. Nó sẽ lấy ra khỏi **call stack** để cho call stack thực thi các hàm khác. Đồng thời phân cho 1 thread có trong **thread pool** để xử lý tác vụ **I/O** trong hàm vừa lấy ra.
 - Thread này sẽ được xử lý trong **handle thread**, lấy dữ liệu trong DB, sau khi xong sẽ được đẩy xuống **callback queue** chờ ngày được lên lại **call stack**.
 
+# Serie
+
+1. [Javascript Engine](https://ren0503.github.io/javascript-engine/)
+2. [V8 Engine](https://ren0503.github.io/v8-engine/)
+3. [Nodejs libuv](https://ren0503.github.io/nodejs-libuv/)
+4. [Express (middleware, routing)](https://ren0503.github.io/node-express-p1/)
+5. [Express (handle error, template, debug)](https://ren0503.github.io/node-express-p2/)
+
 # Tham khảo
 
 [**codehub**](https://www.codehub.com.vn/NodeJS-–-Hieu-Asynchronous-Event-Driven-Nonblocking-I-O)

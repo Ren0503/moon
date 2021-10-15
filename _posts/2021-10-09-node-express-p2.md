@@ -570,6 +570,14 @@ DEBUG=express:* node ./bin/www
 
 Như vậy, cơ bản đã hoàn thành các tìm hiểu về Express Framework. Mong là serie bài viết này sẽ có ích cho những ai đang tìm hiểu về nodejs và express.
 
+# Serie
+
+1. [Javascript Engine](https://ren0503.github.io/javascript-engine/)
+2. [V8 Engine](https://ren0503.github.io/v8-engine/)
+3. [Nodejs libuv](https://ren0503.github.io/nodejs-libuv/)
+4. [Express (middleware, routing)](https://ren0503.github.io/node-express-p1/)
+5. [Express (handle error, template, debug)](https://ren0503.github.io/node-express-p2/)
+
 # Tham khảo
 
 [**digitalocean**](https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application)
