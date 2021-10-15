@@ -322,6 +322,17 @@ Bằng cách này, function sẽ không bị gọi ngay, các scopes cũng đư�
 
 Như vậy là đã hết bài viết về scope trong javascript, hy vọng bài viết sẽ có ích cho những ai cần nó và hẹn gặp lại ở bài viết tiếp theo.
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
+
 ## Nguồn
 
 [**ultimatecourses**](https://ultimatecourses.com/blog/everything-you-wanted-to-know-about-javascript-scope)

@@ -212,6 +212,17 @@ Nói một chút về việc xoá một thuộc tính của object, ta có thể
 
 Nắm rõ được khái niệm Object trong Javascript, ta sẽ đủ cơ sở để có thể tìm hiểu những khái niệm lắt léo khác của Javascript.
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
+
 ## Nguồn
 
 [**nhungdongcodevui**](https://nhungdongcodevui.com/2017/05/19/javascript-ban-ve-khai-niem-object-trong-javascript)

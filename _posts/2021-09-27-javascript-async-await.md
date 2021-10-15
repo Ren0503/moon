@@ -155,6 +155,16 @@ Dựa vào các tình huống cụ thể, chúng ta sẽ sử dụng **try/catch
 
 Với việc bổ sung Async/Await trong ngôn ngữ JavaScript có một bước nhảy vọt về khả năng dễ đọc và dễ sử dụng cho người mới bắt đầu lập trình JavaScript và người đã có kinh nghiệm. Đây cũng là bài viết cuối cùng trong serie tìm hiểu về Javascript, hy vọng nó sẽ có ích với những ai cần nó.
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
 
 ## Tham khảo
 

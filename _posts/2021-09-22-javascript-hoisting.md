@@ -255,6 +255,17 @@ PI=3.142;
 
 Hoisting là cơ chế của Javascript cho phép đưa tất cả các khai báo lên trên cùng của **Scope**. Sử dụng `let` và `const` thay cho `var` để tránh **Hoisting** lằng nhằng và giúp code chặc chẽ hơn. Hy vọng bài viết sẽ có ích cho ai đang gặp các vấn đề với Hoisting.
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
+
 # Nguồn
 
 [**xdevclass**](https://xdevclass.com/hieu-sau-ve-hoisting-scope-trong-javascript/#7_Thu_tu_Hoisting)

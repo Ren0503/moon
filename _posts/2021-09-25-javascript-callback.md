@@ -220,6 +220,17 @@ Bên cạnh đó, callback hell cũng làm cho tính thẩm mĩ của code giả
 
 Như vậy chúng ta đã cùng nhau tìm hiểu về khái niệm, cách hoạt động và nhưng lưu ý khi thực hiện Callback Function trong Javascript. Mong là bài viết sẽ hữu ích cho những ai đang cần đến nó
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
+
 ## Nguồn
 
 [**codelearn**](https://codelearn.io/sharing/callback-function-trong-javascript)

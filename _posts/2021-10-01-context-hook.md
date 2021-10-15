@@ -336,6 +336,11 @@ Như vậy là xong ta có ứng dụng demo như sau :
 
 ![Demo](/assets/img/redux/demo.gif)
 
+## Serie
+
+1. [Context API](https://ren0503.github.io/context-api/)
+2. [Context Hook](https://ren0503.github.io/context-hook/)
+
 # Tham khảo
 
 [**viblo**](https://viblo.asia/p/react-hooks-su-dung-usecontext-va-usereducer-de-thay-the-redux-yMnKM89m57P)

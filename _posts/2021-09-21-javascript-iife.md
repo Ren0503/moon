@@ -100,6 +100,17 @@ for(var i = 0; i < 10; i++){
 
 Tóm lại, IIFE hữu ích khi chúng ta muốn đóng gói code để nó không ảnh hưởng đến các biến toàn cục. Nó hữu ích khi chúng ta viết những thư viện. Sau đó, chúng ta nhúng vào những trang web khác nhau thì cũng không ảnh hưởng đến code của chúng ta.
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
+
 ## Tham khảo
 
 [**thaunguyen**](https://thaunguyen.com/blog/javascript/javascript-iife-la-gi)

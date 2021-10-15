@@ -350,6 +350,17 @@ Như bạn thấy thì kết quả sẽ không thay đổi khi chúng ta gọi c
 
 Bài viết về Promise đến đây là hết, mong là nó sẽ có ích cho những ai đang cần nó. Hẹn gặp lại ở bài viết về async/await
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
+
 ## Nguồn
 
 [**niemvuilaptrinh**](https://www.niemvuilaptrinh.com/article/Tim-Hieu-Promise-Trong-Javascript)

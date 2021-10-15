@@ -204,6 +204,11 @@ Như vậy thì ta đã hiểu về cách hoạt động của Context API, cơ 
 - `<MyContext.Provider>`: nơi tạo giá trị ban đầu cho context.
 - `<MyContext.Consumer>` hay `MyClass.contextType` : nơi muốn lấy giá trị từ context.
 
+## Serie
+
+1. [Context API](https://ren0503.github.io/context-api/)
+2. [Context Hook](https://ren0503.github.io/context-hook/)
+
 ## Nguồn
 
 [**completejavascript**](https://completejavascript.com/quan-ly-state-react-voi-react-context-api)

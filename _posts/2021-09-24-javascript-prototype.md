@@ -109,6 +109,17 @@ Prototype rất quan trọng trong việc giúp ta truy cập tới các thuộc
 
 Quá trình lặp lại này được gọi là chuỗi prototype trong Javascript. Chính điều này + thuộc tính prototype của function tạo nên cơ chế kế thừa **prototype-based** cho Javascript.
 
+## Serie Javascript
+
+1. [Scope](https://ren0503.github.io/javascript-scope/)
+2. [IIFE](https://ren0503.github.io/javascript-iife/)
+3. [Hoisting](https://ren0503.github.io/javascript-hoisting/)
+4. [Object](https://ren0503.github.io/javascript-object/)
+5. [Prototype](https://ren0503.github.io/javascript-prototype/)
+6. [Callbacks](https://ren0503.github.io/javascript-callback/)
+7. [Promise](https://ren0503.github.io/javascript-promise/)
+8. [Async/Await](https://ren0503.github.io/javascript-async-await/)
+
 ## Nguồn
 
 [**nhungdongcodevui**](https://nhungdongcodevui.com/2017/05/24/javascript-prototype-trong-javascript-la-gi-va-tai-sao-no-lai-quan-trong/)
