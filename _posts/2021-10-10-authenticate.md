@@ -93,7 +93,7 @@ export default function auth(req, res, next) {
 };
 ```
 
-*Notes*: Trong vài trường hợp người ta có thể dùng md5 để mã hoá thay cho base64, điều này giúp thông tin được bảo mật hơn nhưng hiệu quả vấn chưa cao. 
+*Notes*: Trong vài trường hợp người ta có thể dùng **md5** để mã hoá thay cho **base64**, điều này giúp thông tin được bảo mật hơn nhưng hiệu quả vấn chưa cao. 
 
 # Session-Cookies
 
@@ -106,7 +106,7 @@ Thông tin về session được lưu trong cookies:
 ## Flow
 
 1. Client gửi một thông tin xác nhận hợp lệ về phía server.
-2. Sau khi server xác định danh tính nó tạo ra một **sessionId** và lưu nó. Và rồi phản hồi client bằng cách thêm nó vào HTTP với `Set-Cookie` ở Header.
+2. Sau khi server xác định danh tính nó tạo ra một **sessionId** và lưu nó. Và rồi phản hồi client bằng cách thêm nó vào HTTP với `Set-Cookie` ở header.
 3. Client nhận được **sessionId** sẽ lưu ở cookie của browser. Sau đó với mỗi lần request tiếp theo sẽ gửi về server.
 
 ![session](/assets/img/auth/session_auth.png)
@@ -141,7 +141,7 @@ app.use(sessions({
 
 # Token
 
-Phương pháp này thay vì sử dụng cookie thì ở đây ta sẽ dùng token. Người dùng sẽ gửi thông tin đăng nhập hợp lệ và server sẽ trả về một **token**. **Token** này sẽ được dùng cho các yêu cầu xác thực tiếp theo. Phần lớn token được sử dụng hiện tại đều là **Jsonwebtoken(JWT)**. IETF định nghĩa JWT như sau:
+Phương pháp này thay vì sử dụng cookie thì ở đây ta sẽ dùng token. Người dùng sẽ gửi thông tin đăng nhập hợp lệ và server sẽ trả về một **token**. **Token** này sẽ được dùng cho các yêu cầu xác thực tiếp theo. Phần lớn token được sử dụng hiện tại đều là **Jsonwebtoken(JWT)**.
 
 > JSON Web Mã (JWT) là một chuẩn mở (RFC 7519) định nghĩa một cách nhỏ gọn và khép kín để truyền một cách an toàn thông tin giữa các bên dưới dạng đối tượng JSON. Thông tin này có thể được xác minh và đáng tin cậy vì nó có chứa chữ ký số. JWTs có thể được ký bằng một thuật toán bí mật (với thuật toán HMAC) hoặc một public/private key sử dụng mã hoá RSA.
 
@@ -153,17 +153,23 @@ Một chuỗi JWT bao gồm 3 phần là:
 - **payload**: chứa các thông tin mình muốn đặt trong chuỗi token như `username` , `userId`, `author`,...
 - **signature**: được tạo ra bằng cách mã hóa phần **header**, **payload** kèm theo một chuỗi **secret** (khóa bí mật)
 
+```javascript
+data = base64urlEncode( header ) + "." + base64urlEncode( payload )
+signature = Hash( data, secret_key );
+```
+
 ## Flow
 
 1. Client sẽ gửi thông tin đăng nhập hợp lệ cho phía server.
 2. Server sau khi xác thực được người dùng sẽ gửi về cho client một token.
 3. Client sẽ lưu token này ở phía mình, với từng yêu cầu xác thực tiếp theo client sẽ cần gửi token về server.
+4. Tại đây server sẽ decode token, và lấy thông tin người dùng ở phần payload. Sao khi xác thực xong nó thực hiện yêu cầu và gửi phản hồi về cho client.
 
 ![token](/assets/img/auth/token_auth.png)
 
 ## Ưu điểm
 
-- Vì token được lưu ở client nên nó sẽ giảm chi phí cho server. Các request cũng sẽ nhanh hơn vì dựa trên chữ ký số nên không cần phải truy vấn cơ sở dữ liệu. Đồng thời cũng thuận lợi cho phát triển ứng dụng di động vì nó có thể lưu token ở `AsyncStorage`.
+- Vì token được lưu ở client nên nó sẽ giảm chi phí cho server. Đồng thời cũng thuận lợi cho phát triển ứng dụng di động vì nó có thể lưu token ở `AsyncStorage`.
 - Phù hợp với kiến trúc RESTful API và Single-Page-Application.
 
 ## Khuyết điểm
@@ -217,58 +223,36 @@ Mỗi mã OTP chỉ có thể sử dụng một lần, và chúng hết hạn sa
 
 ## Code demo
 
-Dùng nodemailer cho việc gửi mail.
-
 ```javascript
-const nodemailer = require('nodemailer');
+const { Auth, LoginCredentials } = require("two-step-auth");
   
+async function login(emailId) {
+  try {
+    const res = await Auth(emailId, "Company Name");
+    console.log(res);
+    console.log(res.mail);
+    console.log(res.OTP);
+    console.log(res.success);
+  } catch (error) {
+    console.log(error);
+  }
+}
   
-let mailTransporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'xyz@gmail.com',
-        pass: '*************'
-    }
-});
+// This should have less secure apps enabled
+LoginCredentials.mailID = "yourmailId@anydomain.com"; 
   
-let mailDetails = {
-    from: 'xyz@gmail.com',
-    to: 'abc@gmail.com',
-    subject: 'Test mail',
-    text: 'Node.js testing mail for GeeksforGeeks'
-};
+// You can store them in your env variables and
+// access them, it will work fine
+LoginCredentials.password = "Your password"; 
+LoginCredentials.use = true;
   
-mailTransporter.sendMail(mailDetails, function(err, data) {
-    if(err) {
-        console.log('Error Occurs');
-    } else {
-        console.log('Email sent successfully');
-    }
-});
-```
-
-Dùng twillio cho gửi SMS.
-
-```javascript
-const twilio = require('twilio');
-require('dotenv').config();
-
-const accountSid = process.env.TWILIO_ACCOUNT_SID; 
-const authToken = process.env.TWILIO_AUTH_TOKEN;  
-
-const client = new twilio(accountSid, authToken);
-
-client.messages.create({
-    body: 'Ahoy, friend!',
-    to: '+<YOUR_PHONE_NUMBER>', 
-    from: '+<YOUR_TWILIO_NUMBER>' 
-})
-.then((message) => console.log(message.sid));
+// Pass in the mail ID you need to verify
+login("verificationEmail@anyDomain.com"); 
 ```
 
 # OAuth
 
-OAuth và OAuth2 là những phương pháp xác thực và uỷ quyền danh tính người dùng phổ biến. Chúng là hình thức đăng nhập một lần(SSO) bằng cách sử dụng thông tin hiện có từ một dịch vụ mạng xã hội như Facebook, Github hoặc Google, để đăng nhập vào trang web của bên thứ ba thay vì tạo tài khoản đăng nhập mới dành riêng cho trang web đó. OAuth2 sử dụng SSL/TLS thay vì yêu cầu chứng chỉ xác thực như OAuth.
+OAuth/OAuth2 là những phương pháp xác thực và uỷ quyền danh tính người dùng phổ biến. Chúng là hình thức đăng nhập một lần(SSO) bằng cách sử dụng thông tin hiện có từ một dịch vụ mạng xã hội như Facebook, Github hoặc Google, để đăng nhập vào trang web của bên thứ ba thay vì tạo tài khoản đăng nhập mới dành riêng cho trang web đó. OAuth2 sử dụng SSL/TLS thay vì yêu cầu chứng chỉ xác thực như OAuth.
 
 ## Hoạt động
 
