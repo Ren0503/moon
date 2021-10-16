@@ -22,11 +22,11 @@ Hiểu đơn giản
 
 - Authorization là câu hỏi *Bạn có thể làm gì ?*
 
-Dễ dàng thấy rằng authentication sẽ luôn diễn ra trước authorization. Tức là phải xác định được danh tính của bạn trước khi thực hiện uỷ quyền. Vậy với các ứng dụng web, ta có những phương thức xác nhận danh tính hay uỷ quyền nào.
+Dễ dàng thấy rằng **authentication** sẽ luôn diễn ra trước **authorization**. Tức là phải xác định được danh tính của bạn trước khi thực hiện uỷ quyền. Vậy với các ứng dụng web, ta có những phương thức xác nhận danh tính hay uỷ quyền nào.
 
 # HTTP/HTTPS
 
-Để hiểu về cách xác định danh tính với web thì trước tiên phải hiểu giao thức mà các trang web đang dùng. Ở đây chúng là HTTP hay HTTPS, sự khác biệt của hai giao thức này nằm ở việc dữ liệu của HTTPS được bảo mật, tuy nhiên cả hai đều thực hiện request/response giữa client và server một cách độc lập. Tức là khi client thực hiện một request đến server (ở đây có thể là một HTTP POST để đăng ký hay đăng nhập). Server thực hiện tạo tài khoản ở cơ sở dữ liệu sau đấy gửi về response là `HTTP Status 200 OK`. Tuy nhiên khi đến câu lệnh request tiếp theo thì server không thể nhận biết được, client gửi request này có phải là client trước đó hay không. 
+Để hiểu về cách xác định danh tính với web thì trước tiên phải hiểu giao thức mà các trang web đang dùng. Ở đây chúng là HTTP hay HTTPS, sự khác biệt của hai giao thức này nằm ở việc dữ liệu của HTTPS được bảo mật, tuy nhiên cả hai đều thực hiện request/response giữa client và server một cách độc lập. Tức là khi client thực hiện một request đến server (ở đây có thể là một **HTTP POST** để đăng ký hay đăng nhập). Server thực hiện tạo tài khoản ở cơ sở dữ liệu sau đấy gửi về response là `HTTP Status 200 OK`. Tuy nhiên khi đến câu lệnh request tiếp theo thì server không thể nhận biết được, client gửi request này có phải là client trước đó hay không. 
 
 Ví dụ ở một trang blog mà người dùng tạo tài khoản sau đấy tiến hành đăng bài, thì server sẽ không xác định được request tạo tài khoản trước đó, và request tạo bài viết hiện tại có phải cùng một người không.
 
@@ -51,8 +51,8 @@ Ví dụ trong Chrome ta sẽ có phần header của request như sau
 ## Hoạt động
 
 1. Phía client thực hiện yêu cầu truy cập một tài nguyên bị hạn chế.
-2. Server gửi về HTTP 401 Unauthorized với tiêu đề `WWW-Authenticate` có giá trị là Basic.
-3. Sau đấy client sẽ mã hoá username và password rồi request về server.
+2. Server gửi về **HTTP 401 Unauthorized** với tiêu đề `WWW-Authenticate` có giá trị là `Basic`.
+3. Sau đấy client sẽ mã hoá **username** và **password** rồi request về server.
 4. Khi server xác nhận được danh tính người dùng, thì với mỗi request chúng sẽ được thêm phần `Authorization: Basic dcdvcmQ=` vào.
 
 ![authHttp](/assets/img/auth/authHttpflow.png)
@@ -97,7 +97,7 @@ export default function auth(req, res, next) {
 
 # Session-Cookies
 
-Với xác thực dựa trên session-cookies, trạng thái của người dùng sẽ được lưu trên máy chủ. Tức là nó không yêu cầu username hay password sau mỗi lần request mà thay vào đó, sau lần đăng nhập hợp lệ đầu tiên, nó sẽ tạo sessionId cho người dùng. Và gửi nó cho client, phía client cụ thể là browser sẽ lưu sessionId vàp trong cookies. Như vậy mỗi là cần có yêu cầu đến server nó chỉ cần gửi theo sessionId.
+Với xác thực dựa trên session-cookies, trạng thái của người dùng sẽ được lưu trên máy chủ. Tức là nó không yêu cầu **username** hay **password** sau mỗi lần request mà thay vào đó, sau lần đăng nhập hợp lệ đầu tiên, nó sẽ tạo **sessionId** cho người dùng. Và gửi nó cho client, phía client cụ thể là browser sẽ lưu **sessionId** vào trong cookies. Như vậy mỗi là cần có yêu cầu đến server nó chỉ cần gửi theo **sessionId**.
 
 Thông tin về session được lưu trong cookies:
 
@@ -106,20 +106,20 @@ Thông tin về session được lưu trong cookies:
 ## Flow
 
 1. Client gửi một thông tin xác nhận hợp lệ về phía server.
-2. Sau khi server xác định danh tính nó tạo ra một sessionId và lưu nó. Và rồi phản hồi client bằng cách thêm nó vào HTTP với `Set-Cookie` ở Header.
-3. Client nhận được sessionId sẽ lưu ở cookie của browser. Sau đó với mỗi lần request tiếp theo sẽ gửi về server.
+2. Sau khi server xác định danh tính nó tạo ra một **sessionId** và lưu nó. Và rồi phản hồi client bằng cách thêm nó vào HTTP với `Set-Cookie` ở Header.
+3. Client nhận được **sessionId** sẽ lưu ở cookie của browser. Sau đó với mỗi lần request tiếp theo sẽ gửi về server.
 
 ![session](/assets/img/auth/session_auth.png)
 
 ## Ưu điểm
 
-- Vì thông tin nằm trong các request của HTTP lúc này chỉ còn là sessionId, nên sẽ bảo mật tốt hơn so với phương thức HTTP ở trên.
+- Vì thông tin nằm trong các request của HTTP lúc này chỉ còn là **sessionId**, nên sẽ bảo mật tốt hơn so với phương thức HTTP ở trên.
 - Các lần đăng nhập tiếp theo nhanh hơn, vì thông tin đăng nhập không bắt buộc.
 - Khá dễ thực hiện.
 
 ## Khuyết điểm
 
-- Phía server sẽ phải lưu trữ session cho tất cả client, tức là nó sẽ phải lưu trữ một số lượng lớn các SessionId, điều này sẽ gây ra áp lực server quá mức. Nếu server mà chúng ta đang triển khai dạng cluster (cụm), để đồng bộ hóa trạng thái đăng nhập, SessionId cần phải được đồng bộ hóa cho từng máy, điều này vô hình trung làm tăng chi phí bảo trì server. 
+- Phía server sẽ phải lưu trữ session cho tất cả client, tức là nó sẽ phải lưu trữ một số lượng lớn các **sessionId**, điều này sẽ gây ra áp lực server quá mức. Nếu server mà chúng ta đang triển khai dạng cluster (cụm), để đồng bộ hóa trạng thái đăng nhập, **sessionId** cần phải được đồng bộ hóa cho từng máy, điều này vô hình trung làm tăng chi phí bảo trì server. 
 - Sẽ gặp khó khi triển khai sang các nền tảng khác (như ứng dụng di động vì nó không cookie để lưu).
 - Dễ bị tấn công CSRF.
 
@@ -141,7 +141,7 @@ app.use(sessions({
 
 # Token
 
-Phương pháp này thay vì sử dụng cookie thì ở đây ta sẽ dùng token. Người dùng sẽ gửi thông tin đăng nhập hợp lệ và server sẽ trả về một token. Token này sẽ được dùng cho các yêu cầu xác thực tiếp theo. Phần lớn token được sử dụng hiện tại đều là Jsonwebtoken(JWT). IETF định nghĩa JWT như sau:
+Phương pháp này thay vì sử dụng cookie thì ở đây ta sẽ dùng token. Người dùng sẽ gửi thông tin đăng nhập hợp lệ và server sẽ trả về một **token**. **Token** này sẽ được dùng cho các yêu cầu xác thực tiếp theo. Phần lớn token được sử dụng hiện tại đều là **Jsonwebtoken(JWT)**. IETF định nghĩa JWT như sau:
 
 > JSON Web Mã (JWT) là một chuẩn mở (RFC 7519) định nghĩa một cách nhỏ gọn và khép kín để truyền một cách an toàn thông tin giữa các bên dưới dạng đối tượng JSON. Thông tin này có thể được xác minh và đáng tin cậy vì nó có chứa chữ ký số. JWTs có thể được ký bằng một thuật toán bí mật (với thuật toán HMAC) hoặc một public/private key sử dụng mã hoá RSA.
 
@@ -150,8 +150,8 @@ Phương pháp này thay vì sử dụng cookie thì ở đây ta sẽ dùng tok
 Một chuỗi JWT bao gồm 3 phần là:
 
 - **header**: chứa kiểu dữ liệu , và thuật toán sử dụng để mã hóa ra chuỗi JWT.
-- **payload**: chứa các thông tin mình muốn đặt trong chuỗi token như username , userId , author ,...
-- **signature**: được tạo ra bằng cách mã hóa phần header , payload kèm theo một chuỗi secret (khóa bí mật)
+- **payload**: chứa các thông tin mình muốn đặt trong chuỗi token như `username` , `userId`, `author`,...
+- **signature**: được tạo ra bằng cách mã hóa phần **header**, **payload** kèm theo một chuỗi **secret** (khóa bí mật)
 
 ## Flow
 
@@ -163,7 +163,7 @@ Một chuỗi JWT bao gồm 3 phần là:
 
 ## Ưu điểm
 
-- Vì token được lưu ở client nên nó sẽ giảm chi phí cho server. Các request cũng sẽ nhanh hơn vì dựa trên chữ ký số nên không cần phải truy vấn cơ sở dữ liệu. Đồng thời cũng thuận lợi cho phát triển ứng dụng di động vì nó có thể lưu ở AsyncStorage
+- Vì token được lưu ở client nên nó sẽ giảm chi phí cho server. Các request cũng sẽ nhanh hơn vì dựa trên chữ ký số nên không cần phải truy vấn cơ sở dữ liệu. Đồng thời cũng thuận lợi cho phát triển ứng dụng di động vì nó có thể lưu token ở `AsyncStorage`.
 - Phù hợp với kiến trúc RESTful API và Single-Page-Application.
 
 ## Khuyết điểm
@@ -192,6 +192,145 @@ module.exports = generateToken;
 
 OTP (One Time Password) nghĩa là mật khẩu sử dụng một lần. Đây là một dãy các ký tự hoặc chữ số ngẫu nhiên được gửi đến điện thoại của bạn để xác nhận bổ sung khi thực hiện giao dịch, thanh toán qua Internet. Mỗi mã OTP chỉ có thể sử dụng một lần và sẽ mất hiệu lực trong vài phút.
 
-# OAuth2/OpenID
+One Time Password (OTP) còn gọi là mật khẩu sử dụng một lần thường được dùng để xác nhận cho việc xác thực danh tính người dùng. OTP là những mã được tạo ngẫu nhiên có thể được sử dụng để xác thực người dùng dựa trên một hệ thống đáng tin cậy. Hệ thống đó có thể là email hoặc số điện thoại đã xác minh.
 
-OAuth2 và OpenID là những phương pháp xác thực và uỷ quyền danh tính người dùng phổ biến. Chúng là hình thức đăng nhập một lần(SSO) bằng cách sử dụng thông tin hiện có từ một dịch vụ mạng xã hội như Facebook, Github hoặc Google, để đăng nhập vào trang web của bên thứ ba thay vì tạo tài khoản đăng nhập mới dành riêng cho trang web đó.
+Mỗi mã OTP chỉ có thể sử dụng một lần, và chúng hết hạn sau một khoảng thời gian ngắn. Vì có lớp bảo mật bổ sung nên OTP thường được dùng cho các dữ liệu nhạy cảm như các giao dịch online.
+
+## Hoạt động
+
+1. Client gửi thông tin xác thực hợp lệ.
+2. Sau khi xác minh thông tin xác thực, server tạo mã ngẫu nhiên, lưu trữ ở phía server và gửi mã đến hệ thống đáng tin cậy(email/điện thoại).
+3. Người dùng lấy mã trên hệ thống đáng tin cậy và nhập lại vào ứng dụng web.
+4. Server xác minh mã so với mã được lưu trữ, đảm bảo rằng nó chưa hết hạn và cấp quyền truy cập cho phù hợp.
+
+## Ưu điểm
+
+- Khó bị bẻ khoá trong các cuộc tấn công replay attack.
+- Mật khẩu bị mất cắp không thể được sử dụng để đăng nhập các trang và dịch vụ khác nhau.
+- Độ bảo mật cao dành cho người dùng.
+
+## Khuyết điểm
+
+- Cần sử dụng thêm loại hình công nghệ khác.
+- Quá trình tạo OTP có thể trở nên rắc rối, phức tạp.
+- Các vấn đề phát sinh khi thiết bị người dùng không khả dụng (hết pin, lỗi mạng, v.v.)
+
+## Code demo
+
+Dùng nodemailer cho việc gửi mail.
+
+```javascript
+const nodemailer = require('nodemailer');
+  
+  
+let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'xyz@gmail.com',
+        pass: '*************'
+    }
+});
+  
+let mailDetails = {
+    from: 'xyz@gmail.com',
+    to: 'abc@gmail.com',
+    subject: 'Test mail',
+    text: 'Node.js testing mail for GeeksforGeeks'
+};
+  
+mailTransporter.sendMail(mailDetails, function(err, data) {
+    if(err) {
+        console.log('Error Occurs');
+    } else {
+        console.log('Email sent successfully');
+    }
+});
+```
+
+Dùng twillio cho gửi SMS.
+
+```javascript
+const twilio = require('twilio');
+require('dotenv').config();
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID; 
+const authToken = process.env.TWILIO_AUTH_TOKEN;  
+
+const client = new twilio(accountSid, authToken);
+
+client.messages.create({
+    body: 'Ahoy, friend!',
+    to: '+<YOUR_PHONE_NUMBER>', 
+    from: '+<YOUR_TWILIO_NUMBER>' 
+})
+.then((message) => console.log(message.sid));
+```
+
+# OAuth
+
+OAuth và OAuth2 là những phương pháp xác thực và uỷ quyền danh tính người dùng phổ biến. Chúng là hình thức đăng nhập một lần(SSO) bằng cách sử dụng thông tin hiện có từ một dịch vụ mạng xã hội như Facebook, Github hoặc Google, để đăng nhập vào trang web của bên thứ ba thay vì tạo tài khoản đăng nhập mới dành riêng cho trang web đó. OAuth2 sử dụng SSL/TLS thay vì yêu cầu chứng chỉ xác thực như OAuth.
+
+## Hoạt động
+
+1. Ứng dụng (website hoặc mobile app) yêu cầu ủy quyền để truy cập vào **Resource Server** (Gmail,Facebook, Twitter hay Github…) thông qua người dùng.
+2. Nếu người dùng ủy quyền cho yêu cầu trên, Ứng dụng sẽ nhận được ủy quyền từ phía người dùng (dưới dạng một token string).
+3. Ứng dụng gửi thông tin định danh (ID) của mình kèm theo ủy quyền của người dùng tới **Authorization Server**.
+4. Nếu thông tin định danh được xác thực và ủy quyền hợp lệ, Authorization Server sẽ trả về cho Ứng dụng **access_token**. Đến đây quá trình ủy quyền hoàn tất.
+5. Để truy cập vào tài nguyên (resource) từ **Resource Server** và lấy thông tin, Ứng dụng sẽ phải đưa ra **access_token** để xác thực.
+6. Nếu **access_token** hợp lệ, **Resource Server** sẽ trả về dữ liệu của tài nguyên đã được yêu cầu cho Ứng dụng.
+
+![OAuth2](/assets/img/auth/OAuth2.png)
+
+## Ưu điểm
+
+- OAuth 2.0 là một giao thức rất linh hoạt dựa trên SSL (Secure Sockets Layer đảm bảo dữ liệu giữa máy chủ web và trình duyệt vẫn giữ được tính riêng tư) để lưu token truy cập của người dùng.
+- Cho phép truy cập hạn chế vào dữ liệu của người dùng và cho phép truy cập khi authorization token hết hạn.
+- Có khả năng chia sẻ dữ liệu cho người dùng mà không phải tiết lộ thông tin cá nhân.
+- Dễ dàng hơn để thực hiện và cung cấp xác thực mạnh mẽ hơn.
+
+## Nhược điểm
+
+- Nếu bạn thêm nhiều phần mở rộng ở các đầu cuối trong đặc tả hệ thống, nó sẽ tạo ra một loạt các triển khai không thể tương tác, có nghĩa là bạn phải viết các đoạn mã riêng cho Facebook, Google, v.v.
+- Nếu các tài khoản Google, Facebook bị hack, thì nó sẽ dẫn đến các ảnh hưởng nghiêm trọng trên nhiều trang web thay vì chỉ một.
+
+## Code demo
+
+```javascript
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID = 'our-google-client-id';
+const GOOGLE_CLIENT_SECRET = 'our-google-client-secret';
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+      userProfile=profile;
+      return done(null, userProfile);
+  }
+));
+ 
+app.get('/auth/google', 
+  passport.authenticate('google', { scope : ['profile', 'email'] }));
+ 
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/error' }),
+  function(req, res) {
+    // Successful authentication, redirect success.
+    res.redirect('/success');
+  });
+```
+
+# Tổng kết
+
+Bài viết xác thực người dùng đến đây là hết. Hy vọng các đoạn demo code và hoạt động sẽ giúp mọi người hiểu hơn về các phương pháp trên. Mong bài viết sẽ có ích với những ai đang cần nó.
+
+# Tham khảo
+
+[**testdriven**](https://testdriven.io/blog/web-authentication-methods/#one-time-passwords)
+
+[**anonystick**](https://anonystick.com/blog-developer/4-co-che-dang-nhap-bai-viet-nay-la-du-cho-dan-lap-trinh-phan-1-2020091071827696)
+
+[**loginradius**](https://www.loginradius.com/blog/async/google-authentication-with-nodejs-and-passportjs/)
+
+[**topdev**](https://topdev.vn/blog/oauth2-la-gi/)
