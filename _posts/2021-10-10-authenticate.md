@@ -9,7 +9,7 @@ comments: true
 
 Ở bài viết này chúng ta sẽ tìm hiểu về một trong những vấn đề quan trọng nhất trong việc xây dựng các ứng dụng web, đấy chính là phương pháp xác nhận danh tính người dùng. Trước tiên ta cần phải hiểu về hai khái niệm xác thực người dùng và uỷ quyền người dùng.
 
-# Authentication vs Authorization
+## Authentication vs Authorization
 - **Authentication** hay quyền xác thực người dùng, là quá trình xác minh thông tin đăng nhập của một người dùng hoặc thiết bị cố gắng truy cập vào một hệ thống
 
 - **Authorization** hay uỷ quyền, là quá trình xác minh xem người dùng hoặc thiết bị có được phép thực hiện các tác vụ nhất định trên hệ thống nhất định hay không.
@@ -68,7 +68,7 @@ Ví dụ trong Chrome ta sẽ có phần header của request như sau
 - Phải xác thực danh tính với mỗi request.
 - Người dùng chỉ có thể đăng xuất bằng cách đăng nhập thông tin không hợp lệ.
 
-Code demo:
+## Ví dụ
 
 ```javascript
 import basicAuth from 'basic-auth';
@@ -103,7 +103,7 @@ Thông tin về session được lưu trong cookies:
 
 ![cookie](/assets/img/auth/cookie.png)
 
-## Flow
+## Hoạt động
 
 1. Client gửi một thông tin xác nhận hợp lệ về phía server.
 2. Sau khi server xác định danh tính nó tạo ra một **sessionId** và lưu nó. Và rồi phản hồi client bằng cách thêm nó vào HTTP với `Set-Cookie` ở header.
@@ -123,7 +123,7 @@ Thông tin về session được lưu trong cookies:
 - Sẽ gặp khó khi triển khai sang các nền tảng khác (như ứng dụng di động vì nó không cookie để lưu).
 - Dễ bị tấn công CSRF.
 
-## Code demo
+## Ví dụ
 
 ```javascript
 const express = require('express');
@@ -158,7 +158,7 @@ data = base64urlEncode( header ) + "." + base64urlEncode( payload )
 signature = Hash( data, secret_key );
 ```
 
-## Flow
+## Hoạt động
 
 1. Client sẽ gửi thông tin đăng nhập hợp lệ cho phía server.
 2. Server sau khi xác thực được người dùng sẽ gửi về cho client một token.
@@ -177,17 +177,14 @@ signature = Hash( data, secret_key );
 - Vẫn có thể bị tấn công XSS(vào localStorage) hay CSRF(vào cookie).
 - Các token không thể xoá mà chỉ có thể hết hạn, nên cần thiết lập thời hạn token ở mức ngắn (để tránh tình trạng kẻ xấu lấy được token và làm bậy)
 
-## Code demo
+## Ví dụ
 
 ```javascript
 const jwt = require('jsonwebtoken');
 
-JWT_SECRET = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-JWT_EXPIRE = '1h'
-
 const generateToken = (payload) => {
-    return jwt.sign(payload, JWT_SECRET, {
-        expiresIn: JWT_EXPIRE,
+    return jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRE,
     });
 };
 
@@ -221,7 +218,7 @@ Mỗi mã OTP chỉ có thể sử dụng một lần, và chúng hết hạn sa
 - Quá trình tạo OTP có thể trở nên rắc rối, phức tạp.
 - Các vấn đề phát sinh khi thiết bị người dùng không khả dụng (hết pin, lỗi mạng, v.v.)
 
-## Code demo
+## Ví dụ
 
 ```javascript
 const { Auth, LoginCredentials } = require("two-step-auth");
@@ -277,7 +274,7 @@ OAuth/OAuth2 là những phương pháp xác thực và uỷ quyền danh tính 
 - Nếu bạn thêm nhiều phần mở rộng ở các đầu cuối trong đặc tả hệ thống, nó sẽ tạo ra một loạt các triển khai không thể tương tác, có nghĩa là bạn phải viết các đoạn mã riêng cho Facebook, Google, v.v.
 - Nếu các tài khoản Google, Facebook bị hack, thì nó sẽ dẫn đến các ảnh hưởng nghiêm trọng trên nhiều trang web thay vì chỉ một.
 
-## Code demo
+## Ví dụ
 
 ```javascript
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
