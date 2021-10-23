@@ -167,7 +167,7 @@ render(
 
 ![link](/assets/img/stycomp/link.png)
 
-Và nó cũng sẽ hoạt động tốt với những component mà ta tự viết:
+Và `as` cũng sẽ hoạt động tốt với những component mà ta tự viết:
 
 ```jsx
 const Button = styled.button`
@@ -230,7 +230,7 @@ render(
 Nếu styles là một element (vd như `styled.div`) thì styled-component sẽ truyền tất cả thuộc tính HTML sang DOM.
 Còn nếu styles là một component (vd như `styled(MyComponent)`) thì styled-component sẽ truyền tất cả qua props.
 
-Ví dụ dưới đây cho thấy, các props của component Input sẽ được truyền sang DOM khi mounted, như là những React element.
+Ví dụ dưới đây cho thấy, các props của component Input sẽ được truyền sang DOM khi mounted, như là những element.
 
 ```jsx
 // Create an Input component that'll render an <input> tag with some styles
@@ -254,7 +254,7 @@ render(
 
 ![props](/assets/img/stycomp/props.png)
 
-> Notes: Trong Input đầu tiên, chỉ có defaultValue và type được truyền đi, styled-component sẽ tự động lọc các thuộc tính không cần thiết.
+> Notes: Khi truyền sang DOM chỉ có defaultValue và type được truyền đi, styled-component sẽ tự động lọc các thuộc tính không chuẩn (ở đầy là inputColor).
 
 ## Cách styled-components hoạt động trong component
 
@@ -286,7 +286,7 @@ export default class Counter extends React.Component {
 }
 ```
 
-Bởi vì styled-component là sự *kết hợp* của tất cả các element và quy luật style của nó. Nên ta có thể viết lại `Counter` như sau:
+Bởi vì styled-component là sự *kết hợp* của tất cả các element và style của nó. Nên ta có thể viết lại `Counter` như sau:
 
 ```jsx
 import React from 'react'
@@ -448,7 +448,7 @@ render(
 )
 ```
 
-Kết quả dòng chứ có màu xanh thay vì màu đỏ:
+Kết quả dòng chữ có màu xanh thay vì màu đỏ:
 
 ![blue](/assets/img/stycomp/blue.png)
 
