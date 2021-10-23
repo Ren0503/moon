@@ -456,7 +456,7 @@ Kết quả dòng chữ có màu xanh thay vì màu đỏ:
 
 Styled component cung cấp `.attrs` cho phép ta đính kèm các props (hoặc thuộc tính) vào component.
 
-Bằng cách này, ta có thể đính kèm props tĩnh vào một phần tử hoặc một bên thứ ba, vd như `activeClassName` vào Link component của React Router. Không chỉ thể ta còn có thể đính kèm một props động. Đối tường `.attrs` có thể nhận vào một hàm, hàm này nhận vào một props, thực hiện các thao tác logic và trả về kết quả cho `.attrs`.
+Bằng cách này, ta có thể đính kèm props tĩnh vào một phần tử hoặc một bên thứ ba, vd như `activeClassName` vào Link component của React Router. Không chỉ thế ta còn có thể đính kèm một props động. Đối tường `.attrs` có thể nhận vào một hàm, hàm này nhận vào một props, thực hiện các thao tác logic và trả về kết quả cho `.attrs`.
 
 Ví dụ dưới đây, Input được đính kèm một thuộc tính động và một thuộc tính tĩnh.
 
