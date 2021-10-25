@@ -24,6 +24,7 @@ comments: true
 10. [Thêm props](#thêm-props-bổ-sung)
 11. [Animation](#animation)
 12. [React Native](#react-native)
+
 ---
 # Chức năng
 
