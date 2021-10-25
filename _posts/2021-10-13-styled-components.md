@@ -9,6 +9,22 @@ comments: true
 
 **Styled-Components** là một thư viện giúp bạn tổ chức và quản lý code CSS một cách dễ dàng trong React. Nó được xây dựng với mục tiêu giữ cho các styles của các components trong React gắn liền với chính các components đó. Nó cung cấp một interface rõ ràng và dễ sử dụng cho cả React và React Native. Styled-Component viết các styles css bằng cú pháp js, nên thay đổi hoàn toàn tư duy cho việc xây dựng styles với component.
 
+---
+### Danh mục
+
+1. [Chức năng](#chức-năng)
+2. [Cài đặt](#cài-đặt)
+3. [Bắt đầu](#bắt-đầu)
+4. [Chuyển đổi props](#chuyển-đổi-dựa-trên-props)
+5. [Mở rộng styles](#mở-rộng-styles)
+6. [Styling any component](#styling-any-component)
+7. [Truyền props](#truyền-props)
+8. [Hoạt động](#cách-styled-components-hoạt-động-trong-component)
+9. [Định nghĩa](#định-nghĩa-styled-component-bên-ngoài-phương-thức-render)
+10. [Thêm props](#thêm-props-bổ-sung)
+11. [Animation](#animation)
+12. [React Native](#react-native)
+---
 # Chức năng
 
 - **Tự động giới hạn CSS**: styled-component theo dõi các component, nếu component được render ra trang web nó sẽ tự động chèn styles vào nó. Ngược lại thì không. Điều đó giúp tránh việc thêm styles cho component vẫn chưa được render, tối ưu hoá việc load css.
@@ -73,7 +89,7 @@ Trong đoạn code trên, ta dùng component `Title` để hiển thị tiêu đ
 
 > Notes: Styled-component sử dụng package stylis.js, sẽ tự động tạo prefix theo các các quy tắc css, bạn không phải lo về vấn đề đấy. Xem repo của stylis.js tại [đây](https://github.com/thysultan/stylis.js)
 
-## Chuyển đổi dựa trên props
+# Chuyển đổi dựa trên props
 
 Giống như những component thông thường trong React, ta có thể truyền props vào các styled components như sau:
 
@@ -102,7 +118,7 @@ Trong ví dụ trên, các component nhận vào props `primary`, nếu có `pri
 
 ![button](/assets/img/stycomp/button.png)
 
-## Mở rộng styles
+# Mở rộng styles
 
 Các styles component không chỉ dựa trên các mẫu là các thẻ html, mà nó còn có thể có mẫu là các styled component khác.
 
@@ -195,7 +211,7 @@ render(
 
 > Notes: Nếu bạn đang dùng phiên bản < 4.x, bạn có thể sử dụng [.withComponent](https://styled-components.com/docs/api#withcomponent) hoặc [.extend](https://styled-components.com/docs/api#deprecated-extend) để có kết quả tương tự "as". Tuy nhiên điều này không khuyến khích vì .extend đã bị loại bỏ ở các phiên bản mới hơn còn .withComponent sẽ bị ngừng hỗ trợ trong tương lai.
 
-## Styling any component
+# Styling any component
 
 Phương thức styles có thể hoạt động hoàn hảo trên tất cả component của bạn, kể cả là component bên thứ ba, miễn là chúng có kèm theo className để truyền vào DOM element. 
 
@@ -225,7 +241,7 @@ render(
 
 ![any](/assets/img/stycomp/any.png)
 
-## Truyền props
+# Truyền props
 
 Nếu styles là một element (vd như `styled.div`) thì styled-component sẽ truyền tất cả thuộc tính HTML sang DOM.
 Còn nếu styles là một component (vd như `styled(MyComponent)`) thì styled-component sẽ truyền tất cả qua props.
@@ -256,7 +272,7 @@ render(
 
 > Notes: Khi truyền sang DOM chỉ có defaultValue và type được truyền đi, styled-component sẽ tự động lọc các thuộc tính không chuẩn (ở đầy là inputColor).
 
-## Cách styled-components hoạt động trong component
+# Cách styled-components hoạt động trong component
 
 Ở cách truyền thống, ta thêm css vào component bằng cách import file css, ở đây tiện lợi nhất là sử dụng CSS Module, ví dụ như sau:
 
@@ -322,7 +338,7 @@ export default class Counter extends React.Component {
 
 > Notes: Ta đặt tên styled-component là "StyledCounter" để không bị trùng với component "Counter", nhưng vẫn có thể nhận dạng trong React Developer Tools và Web Inspector.
 
-## Định nghĩa Styled Component bên ngoài phương thức render
+# Định nghĩa Styled Component bên ngoài phương thức render
 
 Một điều quan trọng phải nhớ nữa là phải định nghĩa styled component bên ngoài phương thức render. Nếu không, nó sẽ được tạo mới lại sau mỗi lần re-render, việc này sẽ ảnh hưởng đáng kể đến bộ nhớ đệm và tốc độ render. Thế nên ta phải viết như thế này:
 
@@ -452,7 +468,7 @@ Kết quả dòng chữ có màu xanh thay vì màu đỏ:
 
 ![blue](/assets/img/stycomp/blue.png)
 
-## Thêm props bổ sung
+# Thêm props bổ sung
 
 Styled component cung cấp `.attrs` cho phép ta đính kèm các props (hoặc thuộc tính) vào component.
 
@@ -489,7 +505,7 @@ render(
 
 ![input](/assets/img/stycomp/input.png)
 
-### Overidding attr
+## Overidding attr
 
 Lưu ý, khi wrappping một styled compponents, `.attrs` sẽ được áp dụng từ styled component trong cùng đến các styled component ngoài cùng.
 
@@ -578,7 +594,7 @@ const styles = css`
 `
 ```
 
-## React Native
+# React Native
 
 Styled-component cũng có thể được sử dụng tương tự trên React Native. Xem vd ở [đây](https://snack.expo.dev/@danielmschmidt/styled-components)
 
