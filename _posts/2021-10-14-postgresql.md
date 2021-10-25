@@ -2,8 +2,8 @@
 layout: post
 title: Kiến Trúc PostgreSQL
 date:   2021-10-14
-excerpt: Sử dụng styled-component để tạo css trong react.
-tags: [react, css, styled-components]
+excerpt: Hiểu về kiến trúc của postgresql.
+tags: [database, postgresql]
 comments: true
 ---
 
@@ -13,7 +13,7 @@ comments: true
 
 Cấu trúc vật lý của PostgreSQL tương đối đơn giản. Nó bao gồm một bộ nhớ chung, một vài tiến trình nền và các file dữ liệu.
 
-![structure](/assets/img/postgresql/structure.png)
+![structure](/assets/img/postgresql/structure.jpg)
 
 ## Bộ nhớ chung
 
@@ -43,7 +43,7 @@ PostgreSQL có bốn loại tiến trình là:
 
 Postmaster Process là tiến trình khởi tạo đầu tiên sau khi PostgreSQL khởi động. Tiến trình này đảm nhiệm việc khởi động hoặc dừng các tiến trình khác nếu cần hoặc có yêu cầu. Sau khi khởi động postmaster process sẽ khởi động các background process.
 
-![diagram](/assets/img/postgresql/diagram.png)
+![diagram](/assets/img/postgresql/diagram.jpg)
 
 Nếu bạn kiểm tra mối quan hệ giữa các tiến trình bằng `pstree`, bạn sẽ thấy Postmaster Process là tiến trình cha của tất cả các tiến trình(để rõ ràng, tôi đã thêm tên và đối số theo sau id của tiến trình).
 
@@ -115,7 +115,7 @@ Client Process đề cập đến background process được chỉ định cho 
 
 # Cấu trúc database
 
-![object](/assets/img/postgresql/object.png)
+![object](/assets/img/postgresql/object.jpg)
 
 Dưới đây là các khái niệm quan trọng cần biết khi tìm hiểu cấu trúc cơ sở dữ liệu của PostgreSQL.
 
@@ -127,11 +127,16 @@ Là đơn vị lưu trữ lớn nhất của một PostgreSQL database server. D
 
 Là đơn vị lớn sau Database cluster. Để thực hiện được câu truy vấn, bạn phải truy cập vào một database nào đó. Khi `initdb()` thực thi, mặc định PostgreSQL sẽ tạo ra 3 csdl là **template0**, **template1** và **postgres**.
 
-| Database | Mục Đích sử dụng |
-|----------|------------------|
-| template0 | Là template database. Không thể truy nhập và chỉnh sửa các đối tượng trong đó. Người dùng có thể tạo database mới dựa trên template0 này bằng cách chỉ định TEMPLATE trong câu lệnh "CREATE DATABASE" |
-| template1 | Là một template database. Người dùng có thể truy nhập và chỉnh sửa các đối tượng trong đó. Khi thực hiện câu lệnh "CREATE DATABASE", PostgreSQL sẽ copy template1 này để tạo database mới. |
-| postgres | database mặc định của PostgreSQL khi tạo database cluster|
+### template0
+
+Là cơ sở dữ liệu mẫu. Không thể truy nhập và chỉnh sửa các đối tượng trong đó. Người dùng có thể tạo database mới dựa trên template0 này bằng cách chỉ định TEMPLATE trong câu lệnh **CREATE DATABASE**
+### template1
+
+Là cơ sở dữ liệu mẫu. Người dùng có thể truy nhập và chỉnh sửa các đối tượng trong đó. Khi thực hiện câu lệnh "CREATE DATABASE", PostgreSQL sẽ copy template1 này để tạo database mới.
+
+### postgres
+
+Cơ sở dữ liệu mặc định của PostgreSQL khi tạo database cluster.
 
 ## Tablespace
 
