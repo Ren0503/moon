@@ -7,28 +7,77 @@ tags: [database, postgresql]
 comments: true
 ---
 
-Ở hiện tại PostgreSQL có lẽ là cơ sở dữ liệu tiên tiến nhất trong trong các RDBSM trên thị trường. Được giới thiệu lần đầu vào năm 1989, cho đến nay đã có rất nhiều cải tiến. Theo [db_engines](https://db-engines.com/en/ranking), nó là cơ sở dữ liệu phổ biến thứ 4 trên thế giới (tại thời điểm viết bài).
+Được giới thiệu lần đầu vào năm 1989, bởi nhóm nghiên cứu ở đại học California. PostgreSQL được gọi là cơ sở dữ liệu mã nguồn mở tiên tiến nhất thế giới, cho đến thời điểm hiện tại, theo [db_engines](https://db-engines.com/en/ranking), nó là cơ sở dữ liệu phổ biến thứ 4 trên thế giới, và được nhiều ông lớn sử dụng như Uber, Netflix, Instagram hay Spotify. Ở bài viết này ta sẽ tìm hiểu kiến trúc nền của PostgreSQL.
 
+---
+### Danh mục
+1. [Bộ nhớ](#bộ-nhớ-chung)
+2. [Tiến trình](#tiến-trình)
+3. [Cơ sở dữ liệu](#cơ-sở-dữ-liệu)
+4. [Cấu trúc thư mục](#cấu-trúc-thư-mục)
+5. [Vacuum](#vacuum)
+
+---
 # Kiến trúc PostgreSQL
 
-Cấu trúc vật lý của PostgreSQL tương đối đơn giản. Nó bao gồm một bộ nhớ chung, một vài tiến trình nền và các file dữ liệu.
+Ta có kiến trúc của PostgreSQL đơn giản như sau. Nó bao gồm một bộ nhớ chung, một vài tiến trình nền và các file dữ liệu.
 
-![structure](/assets/img/postgresql/structure.jpg)
+![architecture](/assets/img/postgresql/architecture.png)
 
-## Bộ nhớ chung
+# Bộ nhớ chung
 
-Bộ nhớ chung là bộ nhớ dành riêng cho lưu trữ cho bộ nhớ đếm cơ sở dữ liệu và nhật ký giao dịch. Hai thành phần quan trọng của bộ nhớ chung là Shared Buffer và WAL Buffer.
+Bộ nhớ chung là bộ nhớ dành riêng cho lưu trữ cơ sở dữ liệu và nhật ký giao dịch. Các thành phần quan trọng của bộ nhớ chung có thể kể đến là Shared Buffer, WAL Buffer, CLOG Buffer, Temp Buffer, Work Memory và Vacuum Buffer.
 
 ## Shared Buffer
 
-Mục đích của Shared Buffer là để giảm thiểu các tác vụ I/O lên đĩa (DISK IO). Để đạt được mục đích đó, phải đáp ứng được những nguyên tắc sau:
-- Ta cần truy cập bộ nhớ đệm lớn(hàng chục, trăm gigabites) nhanh chóng.
+Thao tác đọc và ghi trong bộ nhớ luôn nhanh hơn bất kỳ thao tác nào khác. Thế nên các cơ sở dữ liệu luôn cần bộ nhớ để truy cập nhanh dữ liệu, mỗi khi có truy cập READ và WRITE xuất hiện. Trong PostgreSQL đấy chính là **Shared Buffer** (được điều khiển bởi tham số `shared_buffers`). Dung lượng RAM được yêu cầu bởi Shared Buffer sẽ là cố định trong suốt thời gian tồn tại của đối tượng PostgreSQL. Shared Buffer có thể được truy cập bởi tất cả tiến trình server và người dùng kết nối đến cơ sở dữ liệu.
+
+Dữ liệu được ghi hay chỉnh sửa trong Shared Buffer được gọi là **dirty data**, và đơn vị thao tác trong csdl block (hay page), các block thay đổi được gọi là **dirty block** hay **dirty page**. Sau đấy dirty data sẽ được ghi vào file dữ liệu trên ở đĩa, để ghi dữ liệu liên tục và các file này được gọi là **file dữ liệu**. 
+
+Mục đích của Shared Buffer là để giảm thiểu các tác vụ I/O lên đĩa (DISK IO). Để đạt được mục đích đó, nó phải đáp ứng được những nguyên tắc sau:
+- Phải truy cập bộ nhớ đệm lớn(hàng chục, trăm gigabites) nhanh chóng.
 - Tối thiểu hoá xung đột khi nhiều người dùng truy cập cùng lúc.
 - Các blocks được sử dụng thường xuyên phải ở trong bộ đệm càng lâu càng tốt.
 
 ## WAL Buffer
 
-WAL Buffer là bộ nhớ đệm để lưu trữ tạm thời các thay đổi của cơ sở dữ liệu. Nội dung lưu trữ trong WAL Buffer sẽ được ghi lại vào file WAL tại một thời điểm đã xác định trước.Vì các vấn đề về sao lưu và phục hồi dữ liệu, nên WAL Buffer và file WAL là rất cần thiết.
+WAL Buffer còn gọi là *transaction log buffers*, là bộ nhớ đệm để lưu trữ dữ liệu WAL. Dữ liệu WAL là thông tin về những thay đổi đối với dữ liệu thực tế và dùng để tạo lại dữ liệu trong quá trình sao lưu và phục hồi cơ sở dữ liệu. Dữ liệu WAL được ghi trong file vật lý ở các vị trí liên tục gọi là **WAL segments** hoặc **checkpoint segments**.
+
+WAL Buffer được điều khiển bởi tham số `wal_buffers`, nó được cấp phát bởi RAM của hệ điều hành. Mặc dù nó cũng có thể được truy cập bởi tất cả tiến trình server và người dùng, nhưng nó không phải là một phần của Shared Bufer. WAL Buffer nằm ngoài Shared Buffer và rất nhỏ nếu so sánh với Shared Buffer. Dữ liệu WAL lần đầu tiên sửa đổi sẽ được ghi vào WAL Buffer trước khi được ghi vào WAL Segments trên ổ đĩa. Theo thiết lập mặc định, nó sẽ được phân bổ với kích thước bằng 1/16 Shared Buffer.
+
+## CLOG Buffer
+
+CLOG là viết tắt của **commit log**, và CLOG Buffer là bộ đệm dành riêng cho lưu trữ các trang commit log được cấp phát bởi RAM của hệ điều hành. Các trang commit log chứa nhật ký về giao dịch và các thông tin khác từ dữ liệu WAL. Các commit log chứa trạng thái commit của tất cả giao dịch và cho biết một giao dịch đã hoàn thành hay chưa.
+
+Không có tham số cụ thể để kiểm soát vùng nhớ này. Sẽ có công cụ cơ sở dữ liệu tự động quản lý với số lượng rất nhỏ. Đây là thành phần bộ nhớ dùng chung, có thể được truy cập bởi tất cả tiến trình server và người dùng của csdl PostgreSQL.
+
+## Memory for Lock
+
+Thành phần bộ nhớ này là để lưu trữ tất cả các khóa nặng được sử dụng bởi PostgreSQL. Các khoá này được chia sẻ trên tất cả tiến trình server hay user kết nối đến csdl. Một thiết lập (không mặc định) giữa hai tham số là `max_locks_per_transaction` và `max_pred_locks_per_transaction` ảnh hưởng theo một cách nào đó đến kích thước của bộ nhớ này.
+
+## Vacuum Buffer
+
+Đây là lượng bộ nhớ tối đa được sử dụng cho mỗi tiến trình autovacuum worker, được điều khiển bởi tham số `autovacuum_work_mem`. Bộ nhớ được cấp phát bởi RAM của hệ điều hành. Tất cả thiết lập tham số chỉ có hiệu qua khi tiến trình auto vacuum được bật, nếu không các thiết lập này sẽ không ảnh hưởng đến VACUUM đang chạy ở ngữ cảnh khác. Thành phần bộ nhớ này không được chia sẻ bởi bất kỳ tiến trình máy chủ hay người dùng nào.
+
+## Work Memory
+
+Đây là bộ nhớ dành riêng cho một thao tác sắp xếp hoặc bảng băm cho trong một truy vấn nào đó, được điều khiển bởi tham số `work_mem`. Thao tác sắp xếp có thể là **ORDER BY**, **DISTINCT** hay **MERGE JOIN**. Thao tác trên bảng băm có thể là **hash-join**, băm dựa trên **aggregation** hoặc truy vấn **IN**. 
+
+Các câu truy vấn phức tạp hơn như nhiều thao tác sắp xếp hoặc nhiều bảng băm có thể được cấp phát bởi tham số `work_mem`. Vì lý do đó không nên khai báo `work_mem` với giá trị quá lớn, vì nó có thể dẫn đến việc sử dụng vùng nhớ của hệ điều hành chỉ cho một câu truy vấn lớn, khiến hệ điều hành thiếu RAM cho các tiến trình cần thiết khác.
+
+## Maintenance Work Memory
+
+Đây là lượng nhớ tối đa mà RAM sử dụng cho các hoạt động bảo trì. Các hoạt động bảo trì có thể là **VACUUM**, **CREATE INDEX** hay **FOREIGN KEY**, và được kiểm soát bởi tham số `maintenance_work_mem`. 
+
+Một phiên cơ sở dữ liệu chỉ có thể thực hiện bất kỳ hoạt động bảo trì nào đã đề cập ở trên tại một thời điểm và PostgreSQL thường không thực hiện đồng thời nhiều hoạt động bảo trì như vậy. Do đó tham số này có thể thiết lập lớn hơn nhiều so với tham số `work_mem`. 
+
+*Lưu ý*: Không thiết lập giá trị cho tham số này quá cao, giá trị này sẽ phân bổ nhiều phần cấp phát bộ nhớ như được xác định bởi tham số `autovacuum_max_workers` trong trường hợp không định cấu hình tham số `autovacuum_work_mem`. 
+
+## Temp Buffer
+
+Các cơ sở dữ liệu cần một hay nhiều bảng mẫu, và các block(page) của bảng mẫu này cần nơi để lưu trữ. Temp Buffer sinh ra nhằm mục đích này, bằng cách sử dụng một phần RAM, được xác định bởi tham số `temp_buffer`.
+
+Temp Buffer chỉ được sử dụng để truy cập bảng tạm thời trong phiên người dùng. Không có liên hệ gì giữa temp buffer với các file mẫu được tạo trong thư mục **pgsql_tmp** để thực hiện sắp xếp lớn hay bảng băm.
 
 # Loại tiến trình PostgreSQL
 

@@ -2,8 +2,8 @@
 layout: post
 title: Các Khái Niệm Căn Bản Về Javascript (P8) - Async/Await
 date:   2021-09-27
-subtitle: Giải thích về async/await trong javascript
-excerpt: [javascript, async, await]
+excerpt: Giải thích về async/await trong javascript
+tags: [javascript, async, await]
 comments: true
 ---
 
