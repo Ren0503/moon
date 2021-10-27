@@ -14,8 +14,7 @@ comments: true
 1. [Bộ nhớ](#bộ-nhớ-chung)
 2. [Tiến trình](#tiến-trình)
 3. [Cơ sở dữ liệu](#cơ-sở-dữ-liệu)
-4. [Cấu trúc thư mục](#cấu-trúc-thư-mục)
-5. [Vacuum](#vacuum)
+4. [Vacuum](#vacuum)
 
 ---
 # Kiến trúc PostgreSQL
@@ -30,9 +29,9 @@ Bộ nhớ chung là bộ nhớ dành riêng cho lưu trữ cơ sở dữ liệu
 
 ## Shared Buffer
 
-Thao tác đọc và ghi trong bộ nhớ luôn nhanh hơn bất kỳ thao tác nào khác. Thế nên các cơ sở dữ liệu luôn cần bộ nhớ để truy cập nhanh dữ liệu, mỗi khi có truy cập READ và WRITE xuất hiện. Trong PostgreSQL đấy chính là **Shared Buffer** (được điều khiển bởi tham số `shared_buffers`). Dung lượng RAM được yêu cầu bởi Shared Buffer sẽ là cố định trong suốt thời gian tồn tại của đối tượng PostgreSQL. Shared Buffer có thể được truy cập bởi tất cả tiến trình server và người dùng kết nối đến cơ sở dữ liệu.
+Thao tác đọc và ghi trong bộ nhớ luôn nhanh hơn bất kỳ thao tác nào khác. Thế nên các cơ sở dữ liệu luôn cần bộ nhớ để truy cập nhanh dữ liệu, mỗi khi có truy cập READ và WRITE xuất hiện. Trong PostgreSQL đấy chính là **Shared Buffer** (được điều khiển bởi tham số `shared_buffers`). Dung lượng RAM được cấp phát cho Shared Buffer sẽ là cố định trong suốt thời gian chạy PostgreSQL. Shared Buffer có thể được truy cập bởi tất cả tiến trình server và người dùng kết nối đến cơ sở dữ liệu.
 
-Dữ liệu được ghi hay chỉnh sửa trong Shared Buffer được gọi là **dirty data**, và đơn vị thao tác trong csdl block (hay page), các block thay đổi được gọi là **dirty block** hay **dirty page**. Sau đấy dirty data sẽ được ghi vào file dữ liệu trên ở đĩa, để ghi dữ liệu liên tục và các file này được gọi là **file dữ liệu**. 
+Dữ liệu được ghi hay chỉnh sửa trong Shared Buffer được gọi là **dirty data**, và các đơn vị thao tác trong csdl block (hay page) thay đổi được gọi là **dirty block** hay **dirty page**. Dirty data sẽ được ghi vào file dữ liệu trên ở đĩa, các file này được gọi là **file dữ liệu**. 
 
 Mục đích của Shared Buffer là để giảm thiểu các tác vụ I/O lên đĩa (DISK IO). Để đạt được mục đích đó, nó phải đáp ứng được những nguyên tắc sau:
 - Phải truy cập bộ nhớ đệm lớn(hàng chục, trăm gigabites) nhanh chóng.
@@ -49,25 +48,25 @@ WAL Buffer được điều khiển bởi tham số `wal_buffers`, nó được 
 
 CLOG là viết tắt của **commit log**, và CLOG Buffer là bộ đệm dành riêng cho lưu trữ các trang commit log được cấp phát bởi RAM của hệ điều hành. Các trang commit log chứa nhật ký về giao dịch và các thông tin khác từ dữ liệu WAL. Các commit log chứa trạng thái commit của tất cả giao dịch và cho biết một giao dịch đã hoàn thành hay chưa.
 
-Không có tham số cụ thể để kiểm soát vùng nhớ này. Sẽ có công cụ cơ sở dữ liệu tự động quản lý với số lượng rất nhỏ. Đây là thành phần bộ nhớ dùng chung, có thể được truy cập bởi tất cả tiến trình server và người dùng của csdl PostgreSQL.
+Không có tham số cụ thể để kiểm soát vùng nhớ này. Sẽ có công cụ cơ sở dữ liệu tự động quản lý với số lượng rất nhỏ. Đây là thành phần nhớ dùng chung, có thể được truy cập bởi tất cả tiến trình server và người dùng của csdl PostgreSQL.
 
 ## Memory for Lock
 
-Thành phần bộ nhớ này là để lưu trữ tất cả các khóa nặng được sử dụng bởi PostgreSQL. Các khoá này được chia sẻ trên tất cả tiến trình server hay user kết nối đến csdl. Một thiết lập (không mặc định) giữa hai tham số là `max_locks_per_transaction` và `max_pred_locks_per_transaction` ảnh hưởng theo một cách nào đó đến kích thước của bộ nhớ này.
+Thành phần nhớ này là để lưu trữ tất cả các khóa(lock) nặng được sử dụng bởi PostgreSQL. Các khoá này được chia sẻ trên tất cả tiến trình server hay user kết nối đến csdl. Một thiết lập (không mặc định) giữa hai tham số là `max_locks_per_transaction` và `max_pred_locks_per_transaction` sẽ ảnh hưởng theo một cách nào đó đến kích thước của bộ nhớ này.
 
 ## Vacuum Buffer
 
-Đây là lượng bộ nhớ tối đa được sử dụng cho mỗi tiến trình autovacuum worker, được điều khiển bởi tham số `autovacuum_work_mem`. Bộ nhớ được cấp phát bởi RAM của hệ điều hành. Tất cả thiết lập tham số chỉ có hiệu qua khi tiến trình auto vacuum được bật, nếu không các thiết lập này sẽ không ảnh hưởng đến VACUUM đang chạy ở ngữ cảnh khác. Thành phần bộ nhớ này không được chia sẻ bởi bất kỳ tiến trình máy chủ hay người dùng nào.
+Đây là lượng bộ nhớ tối đa được sử dụng cho mỗi tiến trình autovacuum worker, được điều khiển bởi tham số `autovacuum_work_mem`. Bộ nhớ được cấp phát bởi RAM của hệ điều hành. Tất cả thiết lập tham số chỉ có hiệu quả khi tiến trình auto vacuum được bật, nếu không các thiết lập này sẽ không ảnh hưởng đến VACUUM đang chạy ở ngữ cảnh khác. Thành phần nhớ này không được chia sẻ bởi bất kỳ tiến trình máy chủ hay người dùng nào.
 
 ## Work Memory
 
-Đây là bộ nhớ dành riêng cho một thao tác sắp xếp hoặc bảng băm cho trong một truy vấn nào đó, được điều khiển bởi tham số `work_mem`. Thao tác sắp xếp có thể là **ORDER BY**, **DISTINCT** hay **MERGE JOIN**. Thao tác trên bảng băm có thể là **hash-join**, băm dựa trên **aggregation** hoặc truy vấn **IN**. 
+Đây là bộ nhớ dành riêng cho một thao tác sắp xếp hoặc bảng băm cho một truy vấn nào đó, được điều khiển bởi tham số `work_mem`. Thao tác sắp xếp có thể là **ORDER BY**, **DISTINCT** hay **MERGE JOIN**. Thao tác trên bảng băm có thể là **hash-join**, băm dựa trên **aggregation** hoặc truy vấn **IN**. 
 
 Các câu truy vấn phức tạp hơn như nhiều thao tác sắp xếp hoặc nhiều bảng băm có thể được cấp phát bởi tham số `work_mem`. Vì lý do đó không nên khai báo `work_mem` với giá trị quá lớn, vì nó có thể dẫn đến việc sử dụng vùng nhớ của hệ điều hành chỉ cho một câu truy vấn lớn, khiến hệ điều hành thiếu RAM cho các tiến trình cần thiết khác.
 
 ## Maintenance Work Memory
 
-Đây là lượng nhớ tối đa mà RAM sử dụng cho các hoạt động bảo trì. Các hoạt động bảo trì có thể là **VACUUM**, **CREATE INDEX** hay **FOREIGN KEY**, và được kiểm soát bởi tham số `maintenance_work_mem`. 
+Đây là lượng nhớ tối đa mà RAM sử dụng cho các hoạt động bảo trì(maintenance). Các hoạt động bảo trì có thể là **VACUUM**, **CREATE INDEX** hay **FOREIGN KEY**, và được kiểm soát bởi tham số `maintenance_work_mem`. 
 
 Một phiên cơ sở dữ liệu chỉ có thể thực hiện bất kỳ hoạt động bảo trì nào đã đề cập ở trên tại một thời điểm và PostgreSQL thường không thực hiện đồng thời nhiều hoạt động bảo trì như vậy. Do đó tham số này có thể thiết lập lớn hơn nhiều so với tham số `work_mem`. 
 
@@ -153,10 +152,10 @@ Tiến trình này thực hiện vai trò lưu trữ các thông tin thống kê
 
 ## Backend Process
 
-Số lượng tối đa backend process được thiết lập bởi tham số max_connections có giá trị mặc định là 100. Backend process thực hiện yêu cầu truy vấn của user process, sau đó truyền kết quả. Một số cấu trúc bộ nhớ được yêu cầu để thực thi truy vấn, được gọi là bộ nhớ cục bộ (local memory). Các tham số chính liên quan đến bộ nhớ cục bộ là:
-1. Không gian `work_mem` được sử dụng để sắp xếp, tính toán bit, hash joins và merge joins. Thiết lập mặc định là 4 MB.
-2. Không gian `Maintenance_work_mem` được sử dụng cho VACUUM và CREATE INDEX. Thiệt lập mặc định là 64 MB.
-3  Không gian `Temp_buffers` được sử dụng cho các bảng tạm thời. Thiết lập mặc định là 8 MB.
+Số lượng tối đa backend process được thiết lập bởi tham số `max_connections` có giá trị mặc định là 100. Backend process thực hiện yêu cầu truy vấn của user process, sau đó truyền kết quả. Một số cấu trúc bộ nhớ được yêu cầu để thực thi truy vấn, được gọi là bộ nhớ cục bộ (local memory). Các tham số chính liên quan đến bộ nhớ cục bộ là:
+1. `work_mem` được sử dụng cho điều chỉnh [Work Memory](#work-memory). Thiết lập mặc định là 4 MB.
+2. `maintenance_work_mem` được sử dụng cho điều chỉnh [Maintenance Work Memory](#maintenance-work-memory). Thiệt lập mặc định là 64 MB.
+3  `temp_buffers` được sử dụng cho điều chỉnh [Temp Buffer](#temp-buffer). Thiết lập mặc định là 8 MB.
 
 ## Client Process
 
@@ -208,3 +207,135 @@ Tổng quan có 3 kiểu tables mà PostgreSQL hỗ trợ, đó là:
 - **unlogged table**: là kiểu table mà các thao tác đối với bảng dữ liệu này không được lưu trữ vào WAL. Tức là không có khả năng phục hồi nếu bị corrupt.
 - **temporary table**: là kiểu table chỉ được tạo trong phiên làm việc đó. Khi connection bị ngắt, nó sẽ tự động mất đi.
 - **table thông thường**: Khác với 2 kiểu table trên, là loại table thông thường để lưu trữ dữ liệu. Có khả năng phục hồi khi bị corrupt và tồn tại vĩnh viễn nếu không có thao tác xóa bỏ nào.
+
+# Vacuum
+
+Vacuum là gì ? Tại sao PostgreSQL lại cần có Vacuum ?
+
+- Khác với các RDBMS khác (như MySQL), khi người dùng chạy lệnh DELETE hay UPDATE, PostgreSQL không xoá dữ liệu cũ đi luôn mà chỉ đánh dấu "đó là dữ liệu đã bị xoá". Nên nếu liên tục INSERT/DELETE hoặc UPDATE dữ liệu mà không có cơ chế xoá dữ liệu dư thừa thì dung lượng ổ cứng tăng dẫn đến full.
+- PostgreSQL sử dụng 32 bit Transaction ID (XID) để quản lý transaction(1). Mỗi một record dữ liệu đều có thông tin về XID. Khi dữ liệu được tham chiếu PostgreSQL sử dụng thông tin XID này so sánh với XID hiện tại để đánh giá dữ liệu này có hữu hiệu không. Dữ liệu đang tham chiếu có XID lớn hơn XID hiện tại là dữ liệu không hữu hiệu. Khi sử dụng hết 32 bit XID (khoảng 4 tỷ transactions), để sử dụng tiếp XID sẽ được reset về ban đầu (0). Nếu không có cơ chế chỉnh lại XID trong data thì mỗi lần reset XID, dữ liệu hiện tại sẽ trống trơn (dữ liệu hiện tại luôn có XID lớn hơn XID đã reset (0)).
+
+Như vậy Vacuum ra đời để giải quyết những vấn đề:
+
+- **Lấy lại dữ liệu dư thừa để tái sử dụng**
+- **Cập nhật thông tin thống kê (statistics)**
+- **Giải quyết vấn đề dữ liệu bị vô hiệu khi Wraparound Transaction ID**
+
+## Lấy lại dữ liệu thừa
+
+Như trên, PostgreSQL chưa xoá dữ liệu cũ khi thực hiện thao tác DELETE/UPDATE. Khi VACUUM, những dữ liệu dư thừa đó sẽ được lấy lại và vị trí dư thừa sẽ được cập nhật lại trong bảng vị trí trống (Free Space Map(FSM)). Ngoài ra những block dữ liệu đã được VACUUM sẽ được đánh dấu là đã VACUUM trên bảng khả thị (Visibility Map(VM)), khi UPDATE/DELETE dữ bảng khả thị sẽ cập nhật lại trạng thái là cần VACUUM.
+
+> Free Space Map(FSM): Mỗi bảng dữ liệu (hoặc index) tồn tại tương ứng một FSM. FSM chứa thông tin các vị trí trống trong file dữ liệu. Khi dữ liệu mới được ghi PostgreSQL sẽ nhìn vị trí trống từ FSM trước, việc này giảm thiểu truy cập trực tiếp (sinh I/O disk) vào file dữ liệu. File FSM nằm cùng vị trí với file dữ liệu và có tên = file_dữ_liệu_fsm (như ví dụ dưới).
+
+> Visibility Map(VM): Mỗi bảng dữ liệu tồn tại tương ứng một visibility map (VM). Một block dữ liệu tương ứng với 1 bit trên VM. VACUUM xem trước thông tin VM của bảng dữ liệu, và chỉ thực hiện trên những block cần được VACUUM. File VM nằm cùng vị trí với file dữ liệu và có tên = file_dữ_liệu_vm (như ví dụ dưới).
+
+
+```sql
+testdb=# create table testtbl(id integer);
+CREATE TABLE
+testdb=# insert into testtbl select generate_series(1,100);
+INSERT 0 100
+testdb=# delete from testtbl where id < 90;
+DELETE 89
+testdb=# checkpoint;
+CHECKPOINT
+testdb=# \! ls -l $PGDATA/base/16384/24576*
+-rw------- 1 bocap staff 8192 Jun 24 18:19 /Users/bocap/Downloads/pg94/data/base/16384/24576
+-rw------- 1 bocap staff 24576 Jun 24 18:19 /Users/bocap/Downloads/pg94/data/base/16384/24576_fsm
+-rw------- 1 bocap staff 8192 Jun 24 18:19 /Users/bocap/Downloads/pg94/data/base/16384/24576_vm
+```
+
+## Cập nhật lại thông tin thống kê
+
+Một số bạn lầm tưởng rằng chỉ có chức năng ANALYZE mới cập nhật lại thông tin thống kê dùng bởi planner, nhưng thực tế VACUUM cũng cập nhật thông tin này. Cụ thể là relpages và reltuples trong system catalog pg_class. Do vậy nên có thể nói VACUUM cũng ảnh hưởng tới việc chọn plan thực thi.
+
+```bash
+postgres=# select relpages,reltuples from pg_class where relname = 'testtbl';
+ relpages | reltuples 
+----------+-----------
+        0 |         0
+(1 row)
+
+postgres=# insert into testtbl select generate_series(1,10),random()::text;
+INSERT 0 10
+postgres=# select relpages,reltuples from pg_class where relname = 'testtbl';
+ relpages | reltuples 
+----------+-----------
+        0 |         0
+(1 row)
+
+postgres=# vacuum testtbl;
+VACUUM
+postgres=# select relpages,reltuples from pg_class where relname = 'testtbl';
+ relpages | reltuples 
+----------+-----------
+        1 |        10
+(1 row)
+```
+
+## autovacuum
+
+autovacuum là chức năng tự động thực thi VACUUM hoặc ANALYZE khi cần thiết. Chức năng này hoạt động khi tham số `autovacuum` và `track_counts` thiết lập là on. Cả 2 tham số này đều mặc định là on nên autovacuum sẽ tự động hoạt động khi khởi động PostgreSQL. Khi tham số autovacuum là on. Sau khi khởi động PostgreSQL tiến trình "autovacuum launcher process" sẽ đảm nhận việc này.
+
+```bash
+BocapnoMacBook-Pro:postgres bocap$ ps -ef | grep autovacuum | grep  -v grep
+501  3169  3164   0 13Aug17 ??         0:03.13 postgres: autovacuum launcher process
+```
+
+Launcher process cứ mỗi `autovacuum_naptime` sẽ kiểm tra thông tin thống kê, nếu thấy bảng nào cần thiết VACUUM hoặc ANALYZE, launcher process sẽ khởi động các worker processes để thực hiện việc VACUUM hoặc ANALYZE. Số lượng process autovacuum worker hoạt động trong cùng một thời điểm được giới hạn bởi tham số `autovacuum_max_workers` (mặc định là 3).
+
+```bash
+BocapnoMacBook-Pro:postgres bocap$ ps -ef | grep autovacuum | grep  -v grep
+  501 26490 26484   0  1:14AM ??         0:00.01 postgres: autovacuum launcher process   
+  501 26618 26484   0  1:16AM ??         0:00.03 postgres: autovacuum worker process   postgres
+```
+
+Điều kiện cần thiết cho bảng được VACUUM hoặc ANALYZE bởi autovacuum như bên dưới.
+
+### VACUUM
+Bảng sẽ tự động được VACUUM khi số lượng dòng bị xoá hoặc update lớn hơn `autovacuum_vacuum_scale_factor` * tổng số lượng dòng + `autovacuum_vacuum_threshold`
+
+Ví dụ: số lượng dòng là 1000, thì mặc định khi số dòng bị xoá hoặc update lớn hơn 0.2*1000 + 50 = 250 bảng sẽ tự động được VACUUM
+
+### ANALYZE
+
+Bảng sẽ tự động được ANALYZE khi số lượng dòng bị xoá hoặc update lớn hơn `autovacuum_analyze_scale_factor` * tổng số lượng dòng + `autovacuum_analyze_threshold`
+
+Ví dụ: số lượng dòng là 1000, thì mặc định khi số dòng bị xoá, update hoặc insert lớn hơn 0.1*1000 + 50 = 250 bảng sẽ tự động được ANALYZE
+
+## Giám sát hoạt động autovacuum
+
+Để biết đối tượng bảng có được VACUUM, ANALYZE hợp lý không ta có thể xem thông qua view `pg_stat_all_tables`.
+
+```sql
+-- ví dụ bên dưới cho thấy bảng testtbl đã được:
+-- vacuum thủ công vào lúc: 2017-08-26 23:50:28
+-- autovacuum vào lúc: 2017-08-27 01:16:04 
+-- autoanalyze vào lúc: 2017-08-27 01:16:04
+
+postgres=# select last_vacuum,last_autovacuum,last_analyze,last_autoanalyze from pg_stat_all_tables where relid = (select oid from pg_class where relname = 'testtbl');
+          last_vacuum          |        last_autovacuum        | last_analyze |       last_autoanalyze        
+-------------------------------+-------------------------------+--------------+-------------------------------
+ 2017-08-26 23:50:28.025241+09 | 2017-08-27 01:16:04.664297+09 |              | 2017-08-27 01:16:04.665366+09
+(1 row)
+```
+
+Ngoài ra, ta có thể theo dõi tình trạng hoạt động của autovacuum thông qua việc thiết lập tham số `log_autovacuum_min_duration = 0` (log tất cả các hoạt động autovacuum).
+
+```sql
+2017-08-27 01:16:04.664 JST [26618] LOG:  automatic vacuum of table "postgres.public.testtbl": index scans: 0
+	pages: 1276 removed, 0 remain, 0 skipped due to pins, 0 skipped frozen
+	tuples: 100000 removed, 0 remain, 0 are dead but not yet removable, oldest xmin: 579
+	buffer usage: 3851 hits, 0 misses, 0 dirtied
+	avg read rate: 0.000 MB/s, avg write rate: 0.000 MB/s
+	system usage: CPU: user: 0.02 s, system: 0.00 s, elapsed: 0.28 s
+2017-08-27 01:16:04.665 JST [26618] LOG:  automatic analyze of table "postgres.public.testtbl" system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+```
+
+# Tham khảo
+
+[**postgresql.vn(VACUUM)**](https://www.postgresql.vn/blog/vacuum)
+
+[**postgresql.vn(Objects)**](https://www.postgresql.vn/blog/postgresql_objects)
+
+[**postgresql.fastware**](https://www.postgresql.fastware.com/blog/back-to-basics-with-postgresql-memory-components)
