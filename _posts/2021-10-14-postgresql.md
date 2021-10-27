@@ -230,7 +230,7 @@ Như trên, PostgreSQL chưa xoá dữ liệu cũ khi thực hiện thao tác DE
 > Visibility Map(VM): Mỗi bảng dữ liệu tồn tại tương ứng một visibility map (VM). Một block dữ liệu tương ứng với 1 bit trên VM. VACUUM xem trước thông tin VM của bảng dữ liệu, và chỉ thực hiện trên những block cần được VACUUM. File VM nằm cùng vị trí với file dữ liệu và có tên = file_dữ_liệu_vm (như ví dụ dưới).
 
 
-```sql
+```bash
 testdb=# create table testtbl(id integer);
 CREATE TABLE
 testdb=# insert into testtbl select generate_series(1,100);
