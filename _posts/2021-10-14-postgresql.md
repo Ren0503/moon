@@ -2,7 +2,7 @@
 layout: post
 title: Kiến Trúc PostgreSQL
 date:   2021-10-14
-excerpt: Hiểu về kiến trúc của postgresql.
+excerpt: Hiểu về các thành phần trong kiến trúc của postgresql.
 tags: [database, postgresql]
 comments: true
 ---
@@ -25,13 +25,13 @@ Ta có kiến trúc của PostgreSQL đơn giản như sau. Nó bao gồm một 
 
 # Bộ nhớ chung
 
-Bộ nhớ chung là bộ nhớ dành riêng cho lưu trữ cơ sở dữ liệu và nhật ký giao dịch. Các thành phần quan trọng của bộ nhớ chung có thể kể đến là Shared Buffer, WAL Buffer, CLOG Buffer, Temp Buffer, Work Memory và Vacuum Buffer.
+Bộ nhớ chung(Shared Memory) là bộ nhớ dành riêng cho lưu trữ cơ sở dữ liệu và nhật ký giao dịch. Các thành phần quan trọng của bộ nhớ chung có thể kể đến là Shared Buffer, WAL Buffer, CLOG Buffer, Temp Buffer, Work Memory và Vacuum Buffer.
 
 ## Shared Buffer
 
 Thao tác đọc và ghi trong bộ nhớ luôn nhanh hơn bất kỳ thao tác nào khác. Thế nên các cơ sở dữ liệu luôn cần bộ nhớ để truy cập nhanh dữ liệu, mỗi khi có truy cập READ và WRITE xuất hiện. Trong PostgreSQL đấy chính là **Shared Buffer** (được điều khiển bởi tham số `shared_buffers`). Dung lượng RAM được cấp phát cho Shared Buffer sẽ là cố định trong suốt thời gian chạy PostgreSQL. Shared Buffer có thể được truy cập bởi tất cả tiến trình server và người dùng kết nối đến cơ sở dữ liệu.
 
-Dữ liệu được ghi hay chỉnh sửa trong Shared Buffer được gọi là **dirty data**, và các đơn vị thao tác trong csdl block (hay page) thay đổi được gọi là **dirty block** hay **dirty page**. Dirty data sẽ được ghi vào file dữ liệu trên ở đĩa, các file này được gọi là **file dữ liệu**. 
+Dữ liệu được ghi hay chỉnh sửa trong Shared Buffer được gọi là **dirty data**, và các đơn vị thao tác trong csdl block (hay page) thay đổi được gọi là **dirty block** hay **dirty page**. Dirty data sẽ được ghi vào file dữ liệu trên ở đĩa, các file này được gọi là **file dữ liệu (data file)**. 
 
 Mục đích của Shared Buffer là để giảm thiểu các tác vụ I/O lên đĩa (DISK IO). Để đạt được mục đích đó, nó phải đáp ứng được những nguyên tắc sau:
 - Phải truy cập bộ nhớ đệm lớn(hàng chục, trăm gigabites) nhanh chóng.
@@ -99,7 +99,6 @@ Nếu bạn kiểm tra mối quan hệ giữa các tiến trình bằng `pstree`
 
 ## Background Process
 
-Ta có một bảng các Background Process cần có trong PostgreSQL như sau:
 Ta có danh sách các Background Process thường trực như sau:
 
 ### logger 
@@ -154,8 +153,8 @@ Tiến trình này thực hiện vai trò lưu trữ các thông tin thống kê
 
 Số lượng tối đa backend process được thiết lập bởi tham số `max_connections` có giá trị mặc định là 100. Backend process thực hiện yêu cầu truy vấn của user process, sau đó truyền kết quả. Một số cấu trúc bộ nhớ được yêu cầu để thực thi truy vấn, được gọi là bộ nhớ cục bộ (local memory). Các tham số chính liên quan đến bộ nhớ cục bộ là:
 1. `work_mem` được sử dụng cho điều chỉnh [Work Memory](#work-memory). Thiết lập mặc định là 4 MB.
-2. `maintenance_work_mem` được sử dụng cho điều chỉnh [Maintenance Work Memory](#maintenance-work-memory). Thiệt lập mặc định là 64 MB.
-3  `temp_buffers` được sử dụng cho điều chỉnh [Temp Buffer](#temp-buffer). Thiết lập mặc định là 8 MB.
+2. `maintenance_work_mem` được sử dụng cho điều chỉnh [Maintenance Work Memory](#maintenance-work-memory). Thiết lập mặc định là 64 MB.
+3. `temp_buffers` được sử dụng cho điều chỉnh [Temp Buffer](#temp-buffer). Thiết lập mặc định là 8 MB.
 
 ## Client Process
 
@@ -188,7 +187,7 @@ Cơ sở dữ liệu mặc định của PostgreSQL khi tạo database cluster.
 
 ## Tablespace
 
-Là đơn vị lưu trữ dữ liệu về phương diện vật lý bên dưới database. Thông thường dữ liệu vật lý được lưu trữ tại thư mục dữ liệu (nơi ta chỉ định lúc ta tạo database cluster initdb() -D). Nhưng có một phương pháp lưu trữ dữ liệu ngoài phân vùng này, nhờ sử dụng chức năng TABLESPACE. Khi tạo một TABLESPACE tức là ta đã tạo ra một vùng lưu trữ dữ liệu mới độc lập với dữ liệu bên dưới thư mục dữ liệu. Điều này giảm thiểu được disk I/O cho phân vùng thư mục dữ liệu (nếu trong các hệ thống cấu hình RAID, hay hệ thống có 1 đĩa cứng thì không có hiệu quả).
+Là đơn vị lưu trữ dữ liệu về phương diện vật lý bên dưới database. Thông thường dữ liệu vật lý được lưu trữ tại thư mục dữ liệu (nơi ta chỉ định lúc ta tạo database cluster). Nhưng có một phương pháp lưu trữ dữ liệu ngoài phân vùng này, nhờ sử dụng chức năng TABLESPACE. Khi tạo một TABLESPACE tức là ta đã tạo ra một vùng lưu trữ dữ liệu mới độc lập với dữ liệu bên dưới thư mục dữ liệu. Điều này giảm thiểu được disk I/O cho phân vùng thư mục dữ liệu (nếu trong các hệ thống cấu hình RAID, hay hệ thống có 1 đĩa cứng thì không có hiệu quả).
 
 ## Schema
 
@@ -212,7 +211,8 @@ Tổng quan có 3 kiểu tables mà PostgreSQL hỗ trợ, đó là:
 
 Vacuum là gì ? Tại sao PostgreSQL lại cần có Vacuum ?
 
-- Khác với các RDBMS khác (như MySQL), khi người dùng chạy lệnh DELETE hay UPDATE, PostgreSQL không xoá dữ liệu cũ đi luôn mà chỉ đánh dấu "đó là dữ liệu đã bị xoá". Nên nếu liên tục INSERT/DELETE hoặc UPDATE dữ liệu mà không có cơ chế xoá dữ liệu dư thừa thì dung lượng ổ cứng tăng dẫn đến full.
+- Khác với các RDBMS khác (như MySQL), khi người dùng chạy lệnh DELETE hay UPDATE, PostgreSQL không xoá dữ liệu cũ đi luôn mà chỉ đánh dấu "đó là dữ liệu đã bị xoá". Nên nếu liên tục **INSERT/DELETE** hoặc **UPDATE** dữ liệu mà không có cơ chế xoá dữ liệu dư thừa thì dung lượng ổ cứng tăng dẫn đến full.
+
 - PostgreSQL sử dụng 32 bit Transaction ID (XID) để quản lý transaction(1). Mỗi một record dữ liệu đều có thông tin về XID. Khi dữ liệu được tham chiếu PostgreSQL sử dụng thông tin XID này so sánh với XID hiện tại để đánh giá dữ liệu này có hữu hiệu không. Dữ liệu đang tham chiếu có XID lớn hơn XID hiện tại là dữ liệu không hữu hiệu. Khi sử dụng hết 32 bit XID (khoảng 4 tỷ transactions), để sử dụng tiếp XID sẽ được reset về ban đầu (0). Nếu không có cơ chế chỉnh lại XID trong data thì mỗi lần reset XID, dữ liệu hiện tại sẽ trống trơn (dữ liệu hiện tại luôn có XID lớn hơn XID đã reset (0)).
 
 Như vậy Vacuum ra đời để giải quyết những vấn đề:
@@ -275,14 +275,14 @@ postgres=# select relpages,reltuples from pg_class where relname = 'testtbl';
 
 ## autovacuum
 
-autovacuum là chức năng tự động thực thi VACUUM hoặc ANALYZE khi cần thiết. Chức năng này hoạt động khi tham số `autovacuum` và `track_counts` thiết lập là on. Cả 2 tham số này đều mặc định là on nên autovacuum sẽ tự động hoạt động khi khởi động PostgreSQL. Khi tham số autovacuum là on. Sau khi khởi động PostgreSQL tiến trình "autovacuum launcher process" sẽ đảm nhận việc này.
+autovacuum là chức năng tự động thực thi VACUUM hoặc ANALYZE khi cần thiết. Chức năng này hoạt động khi tham số `autovacuum` và `track_counts` thiết lập là on. Cả 2 tham số này đều mặc định là on nên autovacuum sẽ tự động hoạt động khi khởi động PostgreSQL. Khi tham số autovacuum là on. Sau khi khởi động PostgreSQL tiến trình **autovacuum launcher** sẽ đảm nhận việc này.
 
 ```bash
 BocapnoMacBook-Pro:postgres bocap$ ps -ef | grep autovacuum | grep  -v grep
 501  3169  3164   0 13Aug17 ??         0:03.13 postgres: autovacuum launcher process
 ```
 
-Launcher process cứ mỗi `autovacuum_naptime` sẽ kiểm tra thông tin thống kê, nếu thấy bảng nào cần thiết VACUUM hoặc ANALYZE, launcher process sẽ khởi động các worker processes để thực hiện việc VACUUM hoặc ANALYZE. Số lượng process autovacuum worker hoạt động trong cùng một thời điểm được giới hạn bởi tham số `autovacuum_max_workers` (mặc định là 3).
+Tiến trình launcher cứ mỗi `autovacuum_naptime` sẽ kiểm tra thông tin thống kê, nếu thấy bảng nào cần thiết VACUUM hoặc ANALYZE, launcher process sẽ khởi động các worker processes để thực hiện việc VACUUM hoặc ANALYZE. Số lượng tiến trình autovacuum worker hoạt động trong cùng một thời điểm được giới hạn bởi tham số `autovacuum_max_workers` (mặc định là 3).
 
 ```bash
 BocapnoMacBook-Pro:postgres bocap$ ps -ef | grep autovacuum | grep  -v grep
@@ -293,15 +293,15 @@ BocapnoMacBook-Pro:postgres bocap$ ps -ef | grep autovacuum | grep  -v grep
 Điều kiện cần thiết cho bảng được VACUUM hoặc ANALYZE bởi autovacuum như bên dưới.
 
 ### VACUUM
-Bảng sẽ tự động được VACUUM khi số lượng dòng bị xoá hoặc update lớn hơn `autovacuum_vacuum_scale_factor` * tổng số lượng dòng + `autovacuum_vacuum_threshold`
+Bảng sẽ tự động được VACUUM khi số lượng dòng bị xoá hoặc update lớn hơn: **`autovacuum_vacuum_scale_factor` * tổng số lượng dòng + `autovacuum_vacuum_threshold`**.
 
-Ví dụ: số lượng dòng là 1000, thì mặc định khi số dòng bị xoá hoặc update lớn hơn 0.2*1000 + 50 = 250 bảng sẽ tự động được VACUUM
+Ví dụ: số lượng dòng là 1000, thì mặc định khi số dòng bị xoá hoặc update lớn hơn **0.2*1000 + 50 = 250** bảng sẽ tự động được VACUUM
 
 ### ANALYZE
 
-Bảng sẽ tự động được ANALYZE khi số lượng dòng bị xoá hoặc update lớn hơn `autovacuum_analyze_scale_factor` * tổng số lượng dòng + `autovacuum_analyze_threshold`
+Bảng sẽ tự động được ANALYZE khi số lượng dòng bị xoá hoặc update lớn hơn: **`autovacuum_analyze_scale_factor` * tổng số lượng dòng + `autovacuum_analyze_threshold`**.
 
-Ví dụ: số lượng dòng là 1000, thì mặc định khi số dòng bị xoá, update hoặc insert lớn hơn 0.1*1000 + 50 = 250 bảng sẽ tự động được ANALYZE
+Ví dụ: số lượng dòng là 1000, thì mặc định khi số dòng bị xoá, update hoặc insert lớn hơn **0.1*1000 + 50 = 250** bảng sẽ tự động được ANALYZE
 
 ## Giám sát hoạt động autovacuum
 
@@ -332,7 +332,13 @@ Ngoài ra, ta có thể theo dõi tình trạng hoạt động của autovacuum 
 2017-08-27 01:16:04.665 JST [26618] LOG:  automatic analyze of table "postgres.public.testtbl" system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
 ```
 
+# Tổng quát
+
+Trên đây là các kiến thức nền tảng về PostgreSQL. Bài viết tuy dài nhưng có lẽ nó sẽ hữu ích với những ai mới học PostgreSQL.
+
 # Tham khảo
+
+[**severalnines**](https://severalnines.com/database-blog/understanding-postgresql-architecture)
 
 [**postgresql.vn(VACUUM)**](https://www.postgresql.vn/blog/vacuum)
 
