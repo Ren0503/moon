@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bên Trong Node.js (P5) - Express Framework
-date:   2021-10-06
+date:   2021-10-09
 excerpt: Tìm hiểu về các template, debug và handle error trong Express.
 tags: [express, node.js]
 comments: true

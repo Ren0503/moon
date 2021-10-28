@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bên Trong Node.js (P3) - Thư Viện Libuv
-date:   2021-10-05
+date:   2021-10-07
 excerpt: Thư việc libuv và cơ chế Asynchronous Event-Driven Nonblocking I/O .
 tags: [libuv, node.js]
 comments: true

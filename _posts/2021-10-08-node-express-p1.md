@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bên Trong Node.js (P4) - Express Framework
-date:   2021-10-06
+date:   2021-10-08
 excerpt: Cơ chế định tuyến và middleware trong Express.
 tags: [express, node.js]
 comments: true
