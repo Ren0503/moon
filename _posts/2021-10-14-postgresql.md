@@ -32,9 +32,9 @@ Bộ nhớ chung(Shared Memory) là bộ nhớ dành riêng cho lưu trữ cơ s
 
 Thao tác đọc và ghi trong bộ nhớ luôn nhanh hơn bất kỳ thao tác nào khác. Thế nên các cơ sở dữ liệu luôn cần bộ nhớ để truy cập nhanh dữ liệu, mỗi khi có truy cập READ và WRITE xuất hiện. Trong PostgreSQL đấy chính là **Shared Buffer** (được điều khiển bởi tham số `shared_buffers`). Dung lượng RAM được cấp phát cho Shared Buffer sẽ là cố định trong suốt thời gian chạy PostgreSQL. Shared Buffer có thể được truy cập bởi tất cả tiến trình server và người dùng kết nối đến cơ sở dữ liệu.
 
-Dữ liệu được ghi hay chỉnh sửa trong Shared Buffer được gọi là **dirty data**, và các đơn vị thao tác trong csdl block (hay page) thay đổi được gọi là **dirty block** hay **dirty page**. Dirty data sẽ được ghi vào file dữ liệu trên ở đĩa, các file này được gọi là **file dữ liệu (data file)**. 
+Dữ liệu được ghi hay chỉnh sửa trong Shared Buffer được gọi là **dirty data**, và các đơn vị thao tác trong csdl block (hay page) thay đổi được gọi là **dirty block** hay **dirty page**. Dirty data sẽ được ghi vào file vật lý liên tục trên ở đĩa, các file này được gọi là **file dữ liệu (data file)**. 
 
-Mục đích của Shared Buffer là để giảm thiểu các tác vụ I/O lên đĩa (DISK IO). Để đạt được mục đích đó, nó phải đáp ứng được những nguyên tắc sau:
+Mục đích của Shared Buffer là để giảm thiểu các tác vụ I/O lên đĩa (DISK IO). Để đạt được mục đích đó, nó phải đáp ứng được những yêu cầu sau:
 - Phải truy cập bộ nhớ đệm lớn(hàng chục, trăm gigabites) nhanh chóng.
 - Tối thiểu hoá xung đột khi nhiều người dùng truy cập cùng lúc.
 - Các blocks được sử dụng thường xuyên phải ở trong bộ đệm càng lâu càng tốt.
@@ -61,7 +61,7 @@ Thành phần nhớ này là để lưu trữ tất cả các khóa(lock) nặng
 
 ## Work Memory
 
-Đây là bộ nhớ dành riêng cho một thao tác sắp xếp hoặc bảng băm cho một truy vấn nào đó, được điều khiển bởi tham số `work_mem`. Thao tác sắp xếp có thể là **ORDER BY**, **DISTINCT** hay **MERGE JOIN**. Thao tác trên bảng băm có thể là **hash-join**, băm dựa trên **aggregation** hoặc truy vấn **IN**. 
+Đây là bộ nhớ dành riêng cho một thao tác sắp xếp hoặc bảng băm cho một truy vấn nào đó, được điều khiển bởi tham số `work_mem`. Thao tác sắp xếp có thể là **ORDER BY**, **DISTINCT** hay **MERGE JOIN**. Thao tác trên bảng băm có thể là **hash-join** hoặc truy vấn **IN**. 
 
 Các câu truy vấn phức tạp hơn như nhiều thao tác sắp xếp hoặc nhiều bảng băm có thể được cấp phát bởi tham số `work_mem`. Vì lý do đó không nên khai báo `work_mem` với giá trị quá lớn, vì nó có thể dẫn đến việc sử dụng vùng nhớ của hệ điều hành chỉ cho một câu truy vấn lớn, khiến hệ điều hành thiếu RAM cho các tiến trình cần thiết khác.
 
@@ -227,7 +227,7 @@ Ta có bảng ý nghĩa các file (v.13):
 | pg_commit_ts | Thư mục con chứa thông tin về trạng thái commit của dữ liệu timestamp. |
 | pg_dynshmem | Thư mục con chứa các file sử dụng dynamic shared memory. |
 | pg_logical | Thư mục con chứa trạng thái dữ liệu sử dụng trong chức năng logical decoding. |
-| pg_multixact Thư mục con chứa dữ liệu trạng thái multitransaction (sử dụng cho locks mức độ dòng dữ liệu). |
+| pg_multixact | Thư mục con chứa dữ liệu trạng thái multitransaction (sử dụng cho locks mức độ dòng dữ liệu). |
 | pg_notify | Thư mục con chứa dữ liệu về chức năng LISTEN/NOTIFY. |
 | pg_replslot | Thư mục con chứa dữ liệu về replication slot. |
 | pg_serial | Thư mục con chứa thông tin về các transaction commited ở mức độ phân li serializable. |
