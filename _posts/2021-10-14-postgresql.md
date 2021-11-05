@@ -12,9 +12,10 @@ comments: true
 ---
 ### Danh mục
 1. [Bộ nhớ](#bộ-nhớ-chung)
-2. [Tiến trình](#tiến-trình)
-3. [Cơ sở dữ liệu](#cơ-sở-dữ-liệu)
-4. [Vacuum](#vacuum)
+2. [Tiến trình](#loại-tiến-trình-postgresql)
+3. [Cơ sở dữ liệu](#cấu-trúc-database)
+4. [Cấu trúc thư mục](#cấu-trúc-thư-mục)
+5. [Vacuum](#vacuum)
 
 ---
 # Kiến trúc PostgreSQL
@@ -206,6 +207,41 @@ Tổng quan có 3 kiểu tables mà PostgreSQL hỗ trợ, đó là:
 - **unlogged table**: là kiểu table mà các thao tác đối với bảng dữ liệu này không được lưu trữ vào WAL. Tức là không có khả năng phục hồi nếu bị corrupt.
 - **temporary table**: là kiểu table chỉ được tạo trong phiên làm việc đó. Khi connection bị ngắt, nó sẽ tự động mất đi.
 - **table thông thường**: Khác với 2 kiểu table trên, là loại table thông thường để lưu trữ dữ liệu. Có khả năng phục hồi khi bị corrupt và tồn tại vĩnh viễn nếu không có thao tác xóa bỏ nào.
+
+# Cấu trúc thư mục
+
+PostgreSQL có thể được cài đặt trên cả 3 môi trường: Linux, Unix và Windows.
+
+Trên Linux và Unix, PostgreSQL được cài tại thư mục `/usr/local/pgsql` hoặc `/var/lib/pgsql`, còn trên môi trường Windows, là thư mục  `C:\Program Files\PostgreSQL\<version number>`. Các file cấu hình và database được tổ chức ngay trong thư mục data, thể hiện qua biến môi trường `$PGDATA`.
+
+![directory](/assets/img/postgresql/directory.png)
+
+Ta có bảng ý nghĩa các file (v.13):
+
+| Item | Nội dung |
+|------|----------|
+| PG_VERSION | File chứa phiên bản hiện tại của PostgreSQL. |
+| base | Thư mục con chứa cơ sở dữ liệu, trong thư mục này chứa các thư mục con nữa cho mỗi database. |
+| current_logfiles | File ghi các file log được ghi bởi logging collector. |
+| global | Thư mục con chứa các bảng nội bộ, chẳng hạn như pg_database. |
+| pg_commit_ts | Thư mục con chứa thông tin về trạng thái commit của dữ liệu timestamp. |
+| pg_dynshmem | Thư mục con chứa các file sử dụng dynamic shared memory. |
+| pg_logical | Thư mục con chứa trạng thái dữ liệu sử dụng trong chức năng logical decoding. |
+| pg_multixact Thư mục con chứa dữ liệu trạng thái multitransaction (sử dụng cho locks mức độ dòng dữ liệu). |
+| pg_notify | Thư mục con chứa dữ liệu về chức năng LISTEN/NOTIFY. |
+| pg_replslot | Thư mục con chứa dữ liệu về replication slot. |
+| pg_serial | Thư mục con chứa thông tin về các transaction commited ở mức độ phân li serializable. |
+| pg_snapshots | Thư mục con chứa thông tin về các snapshots đã xuất. |
+| pg_stat | Thư mục con chứa các files thông tin thống kê về PostgreSQL đang được sử dụng hiện tại. |
+| pg_stat_tmp | Thư mục con chứa các files thông tin thống kê về PostgreSQL tạm thời.|
+| pg_subtrans | Thư mục con chứa dữ liệu về các subtransaction. |
+| pg_tblspc | Thư mục con chứa thông tin symbolic links tới các tablespaces. |
+| pg_twophase | Thư mục con chứa các tập tin trạng thái cho các prepared transactions. |
+| pg_wal | Thư mục con chứa các file WAL (Write Ahead Log). |
+| pg_xact | Thư mục con chứa thông tin về trạng thái commit của dữ liệu. |
+| postgresql.auto.conf | File lưu trữ các thông số cấu hình được thiết lập bởi ALTER SYSTEM |
+| postmaster.opts | File này chứa thông tin về các tuỳ chọn lần cuối của lệnh khởi động PostgreSQL. |
+| postmaster.pid | File này tạo ra khi khởi động PostgreSQL và mất đi khi shutdown PostgreSQL. File chứa thông tin về PID của postmaster process, đường dẫn thư mục dữ liệu, thời gian khởi động, số hiệu port, đường dẫn Unix-domain socket (là trống trên môi trường Windows), giá trị hiệu lực đầu tiên chỉ định trong tham số listen_address và segment ID shared memory (tạo lúc khởi động PostgreSQL).|
 
 # Vacuum
 
